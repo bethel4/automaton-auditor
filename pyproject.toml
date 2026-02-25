@@ -1,0 +1,11 @@
+[project]
+name = "automaton-auditor"
+version = "0.1.0"
+dependencies = [
+    "langgraph",
+    "langchain",
+    "langchain-openai",
+    "pydantic",
+    "pypdf",
+    "python-dotenv"
+]
