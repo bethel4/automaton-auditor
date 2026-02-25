@@ -14,27 +14,3 @@ venv/
 .DS_Store
 Thumbs.db
 
-# LangGraph / LangChain traces
-*.sqlite
-*.db
-*.log
-
-# Temporary directories
-tmp/
-temp/
-*.tmp
-
-# PDF reports (optional if large)
-reports/*.pdf
-
-# Build artifacts
-*.egg-info/
-dist/
-build/
-*.egg
-
-# Editor-specific
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
