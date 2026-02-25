@@ -1,54 +1,38 @@
-# Automaton Auditor – Interim Submission
-
-**Multi-Agent Judicial Code Audit System (Week 2 – TRP1 Challenge)**
-
-This repository contains the interim implementation of the **Automaton Auditor**, a multi-agent system that evaluates a GitHub repository and PDF report using a forensic, dialectical process. It implements **Detective agents** for evidence collection, prepares structured evidence, and sets the stage for Judge nodes and the Chief Justice synthesis engine.
-
----
-
-## 📁 Repository Structure
-automaton-auditor/
-│
-├── src/
-│ ├── state.py # Pydantic/TypedDict state definitions with reducers
-│ ├── graph.py # Partial StateGraph wiring: Detectives fan-out & EvidenceAggregator fan-in
-│ ├── tools/
-│ │ ├── repo_tools.py # Sandboxed git clone, git log extraction, AST-based graph analysis
-│ │ └── doc_tools.py # PDF ingestion and chunked querying (RAG-lite)
-│ ├── nodes/
-│ │ └── detectives.py # RepoInvestigator and DocAnalyst LangGraph nodes
-│
-├── reports/
-│ └── interim_report.pdf # PDF report committed for peer review
-│
-├── pyproject.toml # Dependencies managed via uv
-├── .env.example # Example environment variables and API keys
-└── README.md # This document
-
----
-
 # Automaton Auditor
 
-Automaton Auditor is an interim multi-agent system for repository and document auditing. It includes detective nodes that gather evidence from code repositories and reports to support downstream judgement and synthesis components.
+Automaton Auditor is a multi-agent system for auditing code repositories and documents. Detectives collect and structure evidence; downstream judge and synthesis components will evaluate and summarize findings.
 
-## Repository layout
+## Table of Contents
 
-- `src/` — core modules: `graph.py`, `llm.py`, `state.py`
+- [Features](#features)
+- [Repository Layout](#repository-layout)
+- [Quickstart](#quickstart)
+- [Configuration](#configuration)
+- [Usage Examples](#usage-examples)
+    - [CLI example](#cli-example)
+    - [Python example](#python-example)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- Multi-agent detective nodes for repository and document analysis
+- Utilities for cloning, extracting git history, and parsing PDFs
+- Modular design to plug different LLM backends (see `src/llm.py`)
+
+## Repository Layout
+
+- `src/` — core modules (`graph.py`, `llm.py`, `state.py`)
 - `nodes/` — agent implementations (e.g., `detectives.py`)
 - `tools/` — helper utilities (`repo_tools.py`, `doc_tools.py`)
 - `reports/` — sample and interim PDF reports
 - `pyproject.toml` — project metadata and dependencies
 - `.env.example` — example environment variables and API keys
 
-## Prerequisites
+## Quickstart
 
-- Python 3.11 or newer
-- Git
-- An LLM API key (if you plan to use `src/llm.py` with a provider such as Grok)
-
-## Quick setup
-
-Clone and install:
+Clone the repository and install editable dependencies:
 
 ```bash
 git clone https://github.com/<your-username>/automaton-auditor.git
@@ -56,14 +40,86 @@ cd automaton-auditor
 python -m pip install -e .
 ```
 
-Create your environment variables:
+Create and edit environment variables:
 
 ```bash
 cp .env.example .env
-# Edit .env and add your API keys and settings
+# open .env and add your API keys/settings
 ```
 
+## Configuration
+
+- Put LLM API keys and other secrets into `.env` (example in `.env.example`).
+- `src/llm.py` contains the adapter/entry points for calling an LLM provider.
+
+## Usage Examples
+
+### CLI example
+
+Run a simple detective node (example script):
+
+```bash
+python -m nodes.detectives
+```
+
+### Python example
+
+Use modules from the codebase inside a script or REPL:
+
+```python
+from src import llm
+from nodes import detectives
+
+# Example: call an llm helper (implementations depend on your provider)
+# response = llm.call_model('Explain recursion in simple terms')
+
+# Example: run detectives programmatically
+# detectives.run_all()
+```
+
+Replace the commented example calls above with the appropriate function names in your local `src/llm.py` and `nodes/detectives.py` implementations.
+
+## Development
+
+- Tests: run `pytest` if there are tests present.
+- Formatting: use `ruff`/`black` or your preferred tools.
+- Add type hints and small, focused tests for new behaviors.
+
+## Contributing
+
+Open issues or PRs. Provide runnable repro steps and tests for non-trivial changes.
 
 ## License
 
-See the repository settings or add a LICENSE file.
+Add a `LICENSE` file or consult repository settings for license details.
+```
+## Run the Detective Graph
+
+```python
+from src.graph import build_graph
+
+state = {
+    "repo_url": "https://github.com/example/repo",
+    "pdf_path": "reports/interim_report.pdf",
+    "evidences": {},
+    "opinions": [],
+}
+
+graph = build_graph()
+result = graph.invoke(state)
+
+print(result["evidences"])
+
+
+---
+
+# 6️ Key Takeaways
+
+- The core problem: **DocAnalyst was not actually running in parallel with RepoInvestigator.**
+- Fix: Wire both nodes into fan-out → aggregator (fan-in).
+- Optional: add `VisionInspector` in same pattern.
+- Make sure conditional edges for errors exist.
+- Update README to show how to invoke parallel execution.
+
+---
+
