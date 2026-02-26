@@ -16,15 +16,15 @@ from src.state import AgentState
 from src.context_manager import setup_audit_context
 
 def main():
-    """Test the complete auditor graph with proper sandboxing."""
+    """Test the complete auditor graph with requests repository."""
     
     # Setup audit context with cleanup handlers
     setup_audit_context()
     
-    # Example test case - using this repository
+    # Test with requests repository directly in code
     test_state: AgentState = {
-        "repo_url": "https://github.com/bethel4/automaton-auditor",
-        "pdf_path": "reports/interim_report.md",  # You'll need to create this
+        "repo_url": "https://github.com/psf/requests.git",
+        "pdf_path": "reports/interim_report.md",
         "rubric_dimensions": [],  # Will be populated by initialize_state
         "evidences": {},
         "opinions": [],
@@ -54,27 +54,49 @@ def main():
         print("✅ Audit Complete!")
         print("=" * 60)
         
-        if "markdown_report" in result:
-            report = result["markdown_report"]
+        # Show evidence summary
+        if "evidences" in result:
+            print("🔍 Evidence Collected:")
+            for category, evidence_list in result["evidences"].items():
+                print(f"  📁 {category}: {len(evidence_list)} items")
+                for i, evidence in enumerate(evidence_list[:2], 1):
+                    print(f"    {i}. {evidence.get('goal', 'Unknown')} - Found: {evidence.get('found', False)}")
+        
+        # Show judicial opinions summary
+        if "opinions" in result:
+            print("\n⚖️ Judicial Opinions:")
+            judges = {}
+            for opinion in result["opinions"]:
+                judge = opinion.get('judge', 'Unknown')
+                if judge not in judges:
+                    judges[judge] = []
+                judges[judge].append(opinion.get('score', 0))
             
-            # Extract and display key metrics
-            lines = report.split('\n')
-            for line in lines:
-                if "Overall Score:" in line:
-                    print(f"📊 {line}")
-                elif "Executive Summary" in line:
-                    print(f"📋 {line}")
-                    break
+            for judge, scores in judges.items():
+                avg_score = sum(scores) / len(scores) if scores else 0
+                print(f"  �‍⚖️ {judge}: {len(scores)} opinions, avg score: {avg_score:.1f}/5")
+        
+        # Show final report
+        if "final_report" in result and result["final_report"]:
+            report = result["final_report"]
+            if hasattr(report, 'overall_score'):
+                print(f"\n📊 Overall Score: {report.overall_score:.1f}/5.0")
             
-            print("\n📝 Full report generated in result['markdown_report']")
-            
-            # Optionally save to file
-            with open("audit_report.md", "w") as f:
-                f.write(report)
-            print("💾 Report saved to audit_report.md")
+            if "markdown_report" in result:
+                report_content = result["markdown_report"]
+                lines = report_content.split('\n')
+                for line in lines:
+                    if "Overall Score:" in line:
+                        print(f"📊 {line}")
+                        break
+                
+                # Optionally save to file
+                with open("audit_report.md", "w") as f:
+                    f.write(report_content)
+                print("💾 Report saved to audit_report.md")
             
         else:
-            print("❌ No report generated")
+            print("❌ No final report generated")
             
     except KeyboardInterrupt:
         print("\n🛑 Audit interrupted by user")

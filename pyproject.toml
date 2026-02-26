@@ -4,7 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.10,<3.13"
 dependencies = [
     "langgraph",
-    "langchain", 
+    "langchain",
     "langchain-openai",
     "pydantic",
     "pypdf",
@@ -20,11 +20,3 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
-
-# Web UI dependencies (optional)
-[project.optional-dependencies]
-web = [
-    "streamlit>=1.28.0",
-    "plotly>=5.15.0",
-    "pandas>=2.0.0"
-]

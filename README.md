@@ -49,29 +49,10 @@ cp .env.example .env
 OPENAI_API_KEY=your_api_key_here
 OPENAI_BASE_URL=https://api.x.ai/v1  # For Grok models
 LANGCHAIN_TRACING_V2=true  # Optional: LangSmith tracing
+LANGSMITH_API_KEY=your_langsmith_key_here  # For LangSmith tracing
 ```
 
 ## 📖 Usage
-
-### Web UI (Recommended)
-
-The easiest way to test the Automaton Auditor is through our interactive web interface:
-
-```bash
-# Launch the web UI
-python run_ui.py
-
-# Or manually:
-cd web_ui
-streamlit run app.py
-```
-
-The web interface provides:
-- 🎛️ Interactive audit configuration
-- 📊 Real-time visualization of the Digital Courtroom
-- 🔍 Evidence collection display
-- ⚖️ Judicial opinion analysis
-- 📋 Final report generation
 
 ### Command Line Interface
 
@@ -117,6 +98,7 @@ automaton-auditor/
 │   ├── state.py              # Pydantic models and TypedDict state
 │   ├── graph.py              # Complete StateGraph with parallel orchestration
 │   ├── llm.py                # LLM adapter for OpenAI/Grok
+│   ├── context_manager.py    # Sandbox cleanup and signal handling
 │   └── nodes/
 │       ├── detectives.py     # Forensic evidence collection
 │       ├── judges.py         # Dialectical judicial personas
@@ -124,15 +106,10 @@ automaton-auditor/
 ├── tools/
 │   ├── repo_tools.py         # Sandboxed git operations and AST parsing
 │   └── doc_tools.py          # PDF ingestion and analysis
-├── web_ui/
-│   ├── app.py                # Interactive Streamlit web interface
-│   ├── requirements.txt      # Web UI dependencies
-│   └── README.md             # Web UI documentation
 ├── rubric.json               # Machine-readable evaluation rubric
 ├── reports/
 │   └── interim_report.md     # Architecture documentation
 ├── test_complete_graph.py    # End-to-end test script
-├── run_ui.py                 # Web UI launch script
 ├── pyproject.toml            # Dependencies and project config
 └── .env.example              # Environment variables template
 ```
@@ -190,10 +167,18 @@ python test_complete_graph.py
 ### LangSmith Tracing
 Enable LangSmith for detailed execution tracing:
 ```bash
-export LANGCHAIN_TRACING_V2=true
-export LANGCHAIN_API_KEY=your_langsmith_key
-export LANGCHAIN_PROJECT="automaton-auditor"
+# .env file
+LANGCHAIN_TRACING_V2=true
+LANGSMITH_API_KEY=your_langsmith_key
+LANGCHAIN_PROJECT="automaton-auditor"
 ```
+
+LangSmith provides:
+- 🏛️ **Digital Courtroom Visualization**: See the complete workflow
+- 🔍 **Agent Tracking**: Each detective, judge, and Chief Justice step
+- 📊 **Performance Metrics**: Token usage, latency, error rates
+- 🐛 **Debug Insights**: Exact prompts and responses
+- 📈 **Execution Flow**: Parallel processing and fan-out/fan-in patterns
 
 ### Error Handling
 The system includes comprehensive error handling:
