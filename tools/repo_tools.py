@@ -5,7 +5,9 @@ import tempfile
 import os
 import ast
 import shutil
-from typing import Dict, List
+from typing import Dict, List, Optional
+
+from gitingest import ingest as gitingest_ingest
 
 # Global registry to keep temporary directories alive
 _temp_dirs = []
@@ -63,6 +65,39 @@ def extract_git_history(repo_path: str) -> List[str]:
         raise RuntimeError("Git history extraction timed out")
     except Exception as e:
         raise RuntimeError(f"Failed to extract git history: {str(e)}")
+
+
+def ingest_repository_with_gitingest(
+    target: str,
+    token: Optional[str] = None,
+) -> Dict:
+    """
+    Use gitingest to produce a prompt-friendly digest of a repository.
+
+    `target` can be a local path (e.g. the cloned repo_path) or a GitHub URL.
+    This is read-only and does not execute any code from the target repo.
+    """
+    try:
+        if token is not None:
+            summary, tree, content = gitingest_ingest(target, token=token)
+        else:
+            summary, tree, content = gitingest_ingest(target)
+    except Exception as e:
+        # Surface a structured error but don't crash callers.
+        return {
+            "success": False,
+            "error": str(e),
+            "summary": "",
+            "tree": "",
+            "content": "",
+        }
+
+    return {
+        "success": True,
+        "summary": summary,
+        "tree": tree,
+        "content": content,
+    }
 
 
 def analyze_graph_structure(repo_path: str) -> Dict:
