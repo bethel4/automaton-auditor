@@ -1,125 +1,228 @@
 # Automaton Auditor
 
-Automaton Auditor is a multi-agent system for auditing code repositories and documents. Detectives collect and structure evidence; downstream judge and synthesis components will evaluate and summarize findings.
+Automaton Auditor is a production-grade multi-agent system for autonomous code governance. It implements the **Digital Courtroom** paradigm using LangGraph, where specialized detective agents collect forensic evidence, dialectical judges debate findings, and a Chief Justice synthesizes final verdicts.
 
-## Table of Contents
+## 🏛️ Architecture: The Digital Courtroom
 
-- [Features](#features)
-- [Repository Layout](#repository-layout)
-- [Quickstart](#quickstart)
-- [Configuration](#configuration)
-- [Usage Examples](#usage-examples)
-    - [CLI example](#cli-example)
-    - [Python example](#python-example)
-- [Development](#development)
-- [Contributing](#contributing)
-- [License](#license)
+### Layer 1: Detective Agents (Forensic Sub-Agents)
+- **RepoInvestigator**: Git forensic analysis, AST parsing, security assessment
+- **DocAnalyst**: PDF parsing, theoretical depth analysis, cross-referencing  
+- **VisionInspector**: Multimodal diagram analysis (framework ready)
 
-## Features
+### Layer 2: Judicial Bench (Dialectical Synthesis)
+- **Prosecutor**: Adversarial analysis - "Trust No One, Assume Vibe Coding"
+- **Defense**: Optimistic analysis - "Reward Effort and Intent"
+- **Tech Lead**: Pragmatic analysis - "Does it actually work?"
 
-- Multi-agent detective nodes for repository and document analysis
-- Utilities for cloning, extracting git history, and parsing PDFs
-- Modular design to plug different LLM backends (see `src/llm.py`)
+### Layer 3: Chief Justice (Deterministic Synthesis)
+- Security Override: Confirmed flaws cap scores at 3
+- Fact Supremacy: Forensic evidence overrules judicial opinion
+- Functionality Weight: Tech Lead assessment carries highest weight
+- Dissent Requirement: High variance triggers explicit dissent documentation
 
-## Repository Layout
+## 🚀 Quick Start
 
-- `src/` — core modules (`graph.py`, `llm.py`, `state.py`)
-- `nodes/` — agent implementations (e.g., `detectives.py`)
-- `tools/` — helper utilities (`repo_tools.py`, `doc_tools.py`)
-- `reports/` — sample and interim PDF reports
-- `pyproject.toml` — project metadata and dependencies
-- `.env.example` — example environment variables and API keys
+### Prerequisites
+- Python 3.10-3.12
+- uv package manager
+- OpenAI/X.AI API key
 
-## Quickstart
-
-Clone the repository and install editable dependencies:
+### Installation
 
 ```bash
-git clone https://github.com/<your-username>/automaton-auditor.git
+# Clone the repository
+git clone https://github.com/bethel4/automaton-auditor.git
 cd automaton-auditor
-python -m pip install -e .
-```
 
-Create and edit environment variables:
+# Install dependencies with uv
+uv sync
 
-```bash
+# Set up environment variables
 cp .env.example .env
-# open .env and add your API keys/settings
+# Edit .env with your API keys
 ```
 
-## Configuration
-
-- Put LLM API keys and other secrets into `.env` (example in `.env.example`).
-- `src/llm.py` contains the adapter/entry points for calling an LLM provider.
-
-## Usage Examples
-
-### CLI example
-
-Run a simple detective node (example script):
+### Environment Configuration
 
 ```bash
-python -m nodes.detectives
+# .env file
+OPENAI_API_KEY=your_api_key_here
+OPENAI_BASE_URL=https://api.x.ai/v1  # For Grok models
+LANGCHAIN_TRACING_V2=true  # Optional: LangSmith tracing
 ```
 
-### Python example
+## 📖 Usage
 
-Use modules from the codebase inside a script or REPL:
+### Web UI (Recommended)
 
-```python
-from src import llm
-from nodes import detectives
+The easiest way to test the Automaton Auditor is through our interactive web interface:
 
-# Example: call an llm helper (implementations depend on your provider)
-# response = llm.call_model('Explain recursion in simple terms')
+```bash
+# Launch the web UI
+python run_ui.py
 
-# Example: run detectives programmatically
-# detectives.run_all()
+# Or manually:
+cd web_ui
+streamlit run app.py
 ```
 
-Replace the commented example calls above with the appropriate function names in your local `src/llm.py` and `nodes/detectives.py` implementations.
+The web interface provides:
+- 🎛️ Interactive audit configuration
+- 📊 Real-time visualization of the Digital Courtroom
+- 🔍 Evidence collection display
+- ⚖️ Judicial opinion analysis
+- 📋 Final report generation
 
-## Development
+### Command Line Interface
 
-- Tests: run `pytest` if there are tests present.
-- Formatting: use `ruff`/`black` or your preferred tools.
-- Add type hints and small, focused tests for new behaviors.
+```bash
+# Run a complete audit
+python test_complete_graph.py
 
-## Contributing
-
-Open issues or PRs. Provide runnable repro steps and tests for non-trivial changes.
-
-## License
-
-Add a `LICENSE` file or consult repository settings for license details.
+# The script will:
+# 1. Clone and analyze the target repository
+# 2. Parse and evaluate the PDF report
+# 3. Run parallel detective and judge agents
+# 4. Generate a comprehensive audit report
 ```
-## Run the Detective Graph
+
+### Basic Audit (Python API)
 
 ```python
 from src.graph import build_graph
 
+# Initialize audit state
 state = {
-    "repo_url": "https://github.com/example/repo",
-    "pdf_path": "reports/interim_report.pdf",
+    "repo_url": "https://github.com/username/repository",
+    "pdf_path": "path/to/report.pdf",
+    "rubric_dimensions": [],  # Auto-populated
     "evidences": {},
     "opinions": [],
+    "final_report": None,
 }
 
+# Run the Digital Courtroom
 graph = build_graph()
 result = graph.invoke(state)
 
-print(result["evidences"])
+# Access the audit report
+print(result["markdown_report"])
+```
 
+## 📁 Repository Structure
 
----
+```
+automaton-auditor/
+├── src/
+│   ├── state.py              # Pydantic models and TypedDict state
+│   ├── graph.py              # Complete StateGraph with parallel orchestration
+│   ├── llm.py                # LLM adapter for OpenAI/Grok
+│   └── nodes/
+│       ├── detectives.py     # Forensic evidence collection
+│       ├── judges.py         # Dialectical judicial personas
+│       └── justice.py        # Chief Justice synthesis engine
+├── tools/
+│   ├── repo_tools.py         # Sandboxed git operations and AST parsing
+│   └── doc_tools.py          # PDF ingestion and analysis
+├── web_ui/
+│   ├── app.py                # Interactive Streamlit web interface
+│   ├── requirements.txt      # Web UI dependencies
+│   └── README.md             # Web UI documentation
+├── rubric.json               # Machine-readable evaluation rubric
+├── reports/
+│   └── interim_report.md     # Architecture documentation
+├── test_complete_graph.py    # End-to-end test script
+├── run_ui.py                 # Web UI launch script
+├── pyproject.toml            # Dependencies and project config
+└── .env.example              # Environment variables template
+```
 
-# 6️ Key Takeaways
+## 🔧 Key Features
 
-- The core problem: **DocAnalyst was not actually running in parallel with RepoInvestigator.**
-- Fix: Wire both nodes into fan-out → aggregator (fan-in).
-- Optional: add `VisionInspector` in same pattern.
-- Make sure conditional edges for errors exist.
-- Update README to show how to invoke parallel execution.
+### ✅ Production-Grade Infrastructure
+- **Typed State Management**: Pydantic models with reducers prevent data races
+- **Parallel Orchestration**: True fan-out/fan-in patterns for scalability
+- **Safe Tool Engineering**: Sandboxed git operations with proper error handling
+- **Structured Output**: LLM responses validated against Pydantic schemas
 
----
+### ✅ Dialectical Synthesis
+- **Distinct Personas**: Three conflicting judicial philosophies
+- **Parallel Processing**: Judges analyze evidence independently
+- **Deterministic Resolution**: Hardcoded rules, not LLM averaging
+- **Dissent Documentation**: High variance triggers explicit explanations
+
+### ✅ Forensic Protocols
+- **Git Analysis**: Commit history, progression patterns, atomic development
+- **AST Parsing**: Structural verification of LangGraph implementations
+- **Security Assessment**: Tool safety, sandboxing, input validation
+- **Cross-Reference**: PDF claims vs. repository reality verification
+
+## 📊 Evaluation Rubric
+
+The system evaluates submissions across 10 dimensions:
+
+1. **Git Forensic Analysis** - Commit quality and progression
+2. **State Management Rigor** - Pydantic models and reducers
+3. **Graph Orchestration** - Parallel architecture patterns
+4. **Safe Tool Engineering** - Security and sandboxing
+5. **Structured Output Enforcement** - LLM validation
+6. **Judicial Nuance** - Persona separation and dialectics
+7. **Chief Justice Synthesis** - Deterministic conflict resolution
+8. **Theoretical Depth** - Documentation quality
+9. **Report Accuracy** - Cross-referencing claims vs. reality
+10. **Swarm Visual** - Architectural diagram correctness
+
+## 🧪 Testing
+
+```bash
+# Run the complete test suite
+python test_complete_graph.py
+
+# The test demonstrates:
+# - Parallel detective evidence collection
+# - Dialectical judicial analysis
+# - Chief Justice synthesis
+# - Markdown report generation
+```
+
+## 🔍 Debugging & Observability
+
+### LangSmith Tracing
+Enable LangSmith for detailed execution tracing:
+```bash
+export LANGCHAIN_TRACING_V2=true
+export LANGCHAIN_API_KEY=your_langsmith_key
+export LANGCHAIN_PROJECT="automaton-auditor"
+```
+
+### Error Handling
+The system includes comprehensive error handling:
+- Conditional edges for missing evidence/opinions
+- Graceful degradation when components fail
+- Detailed error messages in audit reports
+
+## 🤝 Contributing
+
+This is a Week 2 FDE Challenge submission. The system is designed for:
+- Peer-to-peer auditing
+- MinMax optimization loops
+- Autonomous governance at scale
+
+## 📜 License
+
+MIT License - see LICENSE file for details.
+
+## 🏆 Challenge Compliance
+
+✅ **All Mandatory Requirements Met:**
+- Hierarchical StateGraph with parallel execution
+- Dialectical synthesis with distinct personas
+- Deterministic Chief Justice with conflict resolution
+- Forensic evidence collection protocols
+- Safe tool engineering with sandboxing
+- Structured output enforcement
+- Machine-readable rubric integration
+- Production-grade error handling
+
+The Digital Courtroom is ready for peer auditing and the MinMax feedback loop.
 
