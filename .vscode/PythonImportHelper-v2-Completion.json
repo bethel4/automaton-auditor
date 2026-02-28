@@ -1,0 +1,1914 @@
+[
+    {
+        "label": "runpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "runpy",
+        "description": "runpy",
+        "detail": "runpy",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "site",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "site",
+        "description": "site",
+        "detail": "site",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "BadZipFile",
+        "importPath": "zipfile",
+        "description": "zipfile",
+        "isExtraImport": true,
+        "detail": "zipfile",
+        "documentation": {}
+    },
+    {
+        "label": "ZipFile",
+        "importPath": "zipfile",
+        "description": "zipfile",
+        "isExtraImport": true,
+        "detail": "zipfile",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Annotated",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Literal",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "AgentState",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AgentState",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "Evidence",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AgentState",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "JudicialOpinion",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "Evidence",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AgentState",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "JudicialOpinion",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "CriterionResult",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AuditReport",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "Evidence",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AgentState",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AgentState",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AgentState",
+        "importPath": "src.state",
+        "description": "src.state",
+        "isExtraImport": true,
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "repo_tools",
+        "importPath": "src.tools",
+        "description": "src.tools",
+        "isExtraImport": true,
+        "detail": "src.tools",
+        "documentation": {}
+    },
+    {
+        "label": "doc_tools",
+        "importPath": "src.tools",
+        "description": "src.tools",
+        "isExtraImport": true,
+        "detail": "src.tools",
+        "documentation": {}
+    },
+    {
+        "label": "vision_tools",
+        "importPath": "src.tools",
+        "description": "src.tools",
+        "isExtraImport": true,
+        "detail": "src.tools",
+        "documentation": {}
+    },
+    {
+        "label": "load_rubric",
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "isExtraImport": true,
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "ContextBuilder",
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "isExtraImport": true,
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "ContextBuilder",
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "isExtraImport": true,
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "load_rubric",
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "isExtraImport": true,
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "load_rubric",
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "isExtraImport": true,
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "ContextBuilder",
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "isExtraImport": true,
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "get_llm_for_task",
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "isExtraImport": true,
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "get_fallback_llm",
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "isExtraImport": true,
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG_MODE",
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "isExtraImport": true,
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "get_llm_for_task",
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "isExtraImport": true,
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "get_fallback_llm",
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "isExtraImport": true,
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "mock_judicial_opinion",
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "isExtraImport": true,
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG_MODE",
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "isExtraImport": true,
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentConverter",
+        "importPath": "docling.document_converter",
+        "description": "docling.document_converter",
+        "isExtraImport": true,
+        "detail": "docling.document_converter",
+        "documentation": {}
+    },
+    {
+        "label": "InputFormat",
+        "importPath": "docling.datamodel.base_models",
+        "description": "docling.datamodel.base_models",
+        "isExtraImport": true,
+        "detail": "docling.datamodel.base_models",
+        "documentation": {}
+    },
+    {
+        "label": "PyPdfiumDocumentBackend",
+        "importPath": "docling.backend.pypdfium2_backend",
+        "description": "docling.backend.pypdfium2_backend",
+        "isExtraImport": true,
+        "detail": "docling.backend.pypdfium2_backend",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "ast",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "ast",
+        "description": "ast",
+        "detail": "ast",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "base64",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "base64",
+        "description": "base64",
+        "detail": "base64",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "atexit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "atexit",
+        "description": "atexit",
+        "detail": "atexit",
+        "documentation": {}
+    },
+    {
+        "label": "signal",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "signal",
+        "description": "signal",
+        "detail": "signal",
+        "documentation": {}
+    },
+    {
+        "label": "cleanup_temp_dirs",
+        "importPath": "tools.repo_tools",
+        "description": "tools.repo_tools",
+        "isExtraImport": true,
+        "detail": "tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "clone_repository",
+        "importPath": "tools.repo_tools",
+        "description": "tools.repo_tools",
+        "isExtraImport": true,
+        "detail": "tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "extract_git_history",
+        "importPath": "tools.repo_tools",
+        "description": "tools.repo_tools",
+        "isExtraImport": true,
+        "detail": "tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "StateGraph",
+        "importPath": "langgraph.graph",
+        "description": "langgraph.graph",
+        "isExtraImport": true,
+        "detail": "langgraph.graph",
+        "documentation": {}
+    },
+    {
+        "label": "END",
+        "importPath": "langgraph.graph",
+        "description": "langgraph.graph",
+        "isExtraImport": true,
+        "detail": "langgraph.graph",
+        "documentation": {}
+    },
+    {
+        "label": "repo_investigator",
+        "importPath": "src.nodes.detectives",
+        "description": "src.nodes.detectives",
+        "isExtraImport": true,
+        "detail": "src.nodes.detectives",
+        "documentation": {}
+    },
+    {
+        "label": "doc_analyst",
+        "importPath": "src.nodes.detectives",
+        "description": "src.nodes.detectives",
+        "isExtraImport": true,
+        "detail": "src.nodes.detectives",
+        "documentation": {}
+    },
+    {
+        "label": "vision_inspector",
+        "importPath": "src.nodes.detectives",
+        "description": "src.nodes.detectives",
+        "isExtraImport": true,
+        "detail": "src.nodes.detectives",
+        "documentation": {}
+    },
+    {
+        "label": "evidence_aggregator",
+        "importPath": "src.nodes.aggregator",
+        "description": "src.nodes.aggregator",
+        "isExtraImport": true,
+        "detail": "src.nodes.aggregator",
+        "documentation": {}
+    },
+    {
+        "label": "prosecutor",
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "isExtraImport": true,
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "defense",
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "isExtraImport": true,
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "tech_lead",
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "isExtraImport": true,
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "chief_justice",
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "isExtraImport": true,
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "ChatOllama",
+        "importPath": "langchain_ollama",
+        "description": "langchain_ollama",
+        "isExtraImport": true,
+        "detail": "langchain_ollama",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "get_detective_llm",
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "isExtraImport": true,
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_judge_llm",
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "isExtraImport": true,
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_vision_llm",
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "isExtraImport": true,
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_fallback_llm",
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "isExtraImport": true,
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "operator",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "operator",
+        "description": "operator",
+        "detail": "operator",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "TypedDict",
+        "importPath": "typing_extensions",
+        "description": "typing_extensions",
+        "isExtraImport": true,
+        "detail": "typing_extensions",
+        "documentation": {}
+    },
+    {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "create_graph",
+        "importPath": "src.graph",
+        "description": "src.graph",
+        "isExtraImport": true,
+        "detail": "src.graph",
+        "documentation": {}
+    },
+    {
+        "label": "build_graph",
+        "importPath": "src.graph",
+        "description": "src.graph",
+        "isExtraImport": true,
+        "detail": "src.graph",
+        "documentation": {}
+    },
+    {
+        "label": "build_graph",
+        "importPath": "src.graph",
+        "description": "src.graph",
+        "isExtraImport": true,
+        "detail": "src.graph",
+        "documentation": {}
+    },
+    {
+        "label": "setup_audit_context",
+        "importPath": "src.context_manager",
+        "description": "src.context_manager",
+        "isExtraImport": true,
+        "detail": "src.context_manager",
+        "documentation": {}
+    },
+    {
+        "label": "setup_audit_context",
+        "importPath": "src.context_manager",
+        "description": "src.context_manager",
+        "isExtraImport": true,
+        "detail": "src.context_manager",
+        "documentation": {}
+    },
+    {
+        "label": "bin_dir",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "bin_dir = os.path.dirname(abs_file)\nbase = bin_dir[: -len(\"bin\") - 1]  # strip away the bin part from the __file__, plus the path separator\n# prepend bin to PATH (this file is inside the bin directory)\nos.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"automaton-auditor\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"../lib/python3.10/site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "base",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "base = bin_dir[: -len(\"bin\") - 1]  # strip away the bin part from the __file__, plus the path separator\n# prepend bin to PATH (this file is inside the bin directory)\nos.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"automaton-auditor\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"../lib/python3.10/site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"PATH\"]",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "os.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"automaton-auditor\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"../lib/python3.10/site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"VIRTUAL_ENV\"]",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "os.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"automaton-auditor\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"../lib/python3.10/site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"VIRTUAL_ENV_PROMPT\"]",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "os.environ[\"VIRTUAL_ENV_PROMPT\"] = \"automaton-auditor\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"../lib/python3.10/site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "prev_length",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "prev_length = len(sys.path)\nfor lib in \"../lib/python3.10/site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.path[:]",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "sys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.real_prefix",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "sys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.prefix",
+        "kind": 5,
+        "importPath": ".venv.bin.activate_this",
+        "description": ".venv.bin.activate_this",
+        "peekOfCode": "sys.prefix = base",
+        "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "extract_file",
+        "kind": 2,
+        "importPath": ".venv.bin.vba_extract",
+        "description": ".venv.bin.vba_extract",
+        "peekOfCode": "def extract_file(xlsm_zip, filename):\n    # Extract a single file from an Excel xlsm macro file.\n    data = xlsm_zip.read(\"xl/\" + filename)\n    # Write the data to a local file.\n    file = open(filename, \"wb\")\n    file.write(data)\n    file.close()\n# The VBA project file and project signature file we want to extract.\nvba_filename = \"vbaProject.bin\"\nvba_signature_filename = \"vbaProjectSignature.bin\"",
+        "detail": ".venv.bin.vba_extract",
+        "documentation": {}
+    },
+    {
+        "label": "vba_filename",
+        "kind": 5,
+        "importPath": ".venv.bin.vba_extract",
+        "description": ".venv.bin.vba_extract",
+        "peekOfCode": "vba_filename = \"vbaProject.bin\"\nvba_signature_filename = \"vbaProjectSignature.bin\"\n# Get the xlsm file name from the commandline.\nif len(sys.argv) > 1:\n    xlsm_file = sys.argv[1]\nelse:\n    print(\n        \"\\nUtility to extract a vbaProject.bin binary from an Excel 2007+ \"\n        \"xlsm macro file for insertion into an XlsxWriter file.\\n\"\n        \"If the macros are digitally signed, extracts also a vbaProjectSignature.bin \"",
+        "detail": ".venv.bin.vba_extract",
+        "documentation": {}
+    },
+    {
+        "label": "vba_signature_filename",
+        "kind": 5,
+        "importPath": ".venv.bin.vba_extract",
+        "description": ".venv.bin.vba_extract",
+        "peekOfCode": "vba_signature_filename = \"vbaProjectSignature.bin\"\n# Get the xlsm file name from the commandline.\nif len(sys.argv) > 1:\n    xlsm_file = sys.argv[1]\nelse:\n    print(\n        \"\\nUtility to extract a vbaProject.bin binary from an Excel 2007+ \"\n        \"xlsm macro file for insertion into an XlsxWriter file.\\n\"\n        \"If the macros are digitally signed, extracts also a vbaProjectSignature.bin \"\n        \"file.\\n\"",
+        "detail": ".venv.bin.vba_extract",
+        "documentation": {}
+    },
+    {
+        "label": "evidence_aggregator",
+        "kind": 2,
+        "importPath": "src.nodes.aggregator",
+        "description": "src.nodes.aggregator",
+        "peekOfCode": "def evidence_aggregator(state: AgentState) -> Dict[str, Any]:\n    \"\"\"\n    Aggregates evidence from all detectives.\n    This node uses reducers (operator.ior) so it's mostly a pass-through,\n    but we add cross-referencing logic.\n    \"\"\"\n    evidences = state.get(\"evidences\", {})\n    errors = state.get(\"errors\", [])\n    # Log what we received\n    print(f\"📊 Evidence Aggregator received from: {list(evidences.keys())}\")",
+        "detail": "src.nodes.aggregator",
+        "documentation": {}
+    },
+    {
+        "label": "repo_investigator",
+        "kind": 2,
+        "importPath": "src.nodes.detectives",
+        "description": "src.nodes.detectives",
+        "peekOfCode": "def repo_investigator(state: AgentState) -> Dict[str, Any]:\n    \"\"\"\n    Detective: Git forensic analysis with deterministic tools + LLM interpretation\n    Workflow:\n    1. Clone repo safely\n    2. Run deterministic tools to collect facts\n    3. Use LLM to interpret patterns (not to generate facts)\n    4. Store both facts and interpretation as Evidence\n    \"\"\"\n    repo_url = state[\"repo_url\"]",
+        "detail": "src.nodes.detectives",
+        "documentation": {}
+    },
+    {
+        "label": "doc_analyst",
+        "kind": 2,
+        "importPath": "src.nodes.detectives",
+        "description": "src.nodes.detectives",
+        "peekOfCode": "def doc_analyst(state: AgentState) -> Dict[str, Any]:\n    \"\"\"Detective: PDF analysis with deterministic extraction + LLM interpretation\"\"\"\n    pdf_path = state.get(\"pdf_path\", \"\")\n    evidences = []\n    errors = []\n    if not pdf_path or not os.path.exists(pdf_path):\n        evidences.append(Evidence(\n            goal=\"PDF Report Analysis\",\n            found=False,\n            content=None,",
+        "detail": "src.nodes.detectives",
+        "documentation": {}
+    },
+    {
+        "label": "vision_inspector",
+        "kind": 2,
+        "importPath": "src.nodes.detectives",
+        "description": "src.nodes.detectives",
+        "peekOfCode": "def vision_inspector(state: AgentState) -> Dict[str, Any]:\n    \"\"\"Detective: Multimodal diagram analysis (optional)\"\"\"\n    pdf_path = state.get(\"pdf_path\", \"\")\n    evidences = []\n    errors = []\n    if not pdf_path or not os.path.exists(pdf_path):\n        return {\"evidences\": {\"vision_inspector\": []}, \"errors\": errors}\n    try:\n        # Extract images from PDF\n        images = doc_tools.extract_images_from_pdf(pdf_path)",
+        "detail": "src.nodes.detectives",
+        "documentation": {}
+    },
+    {
+        "label": "create_judge_node",
+        "kind": 2,
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "peekOfCode": "def create_judge_node(judge_type: str):\n    \"\"\"\n    Factory function to create judge nodes with proper persona\n    Args:\n        judge_type: \"Prosecutor\", \"Defense\", or \"TechLead\"\n    \"\"\"\n    def judge_node(state: AgentState) -> Dict[str, Any]:\n        \"\"\"Judge node that evaluates evidence through persona lens\"\"\"\n        # Select prompt based on judge type\n        if judge_type == \"Prosecutor\":",
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "format_evidence_for_prompt",
+        "kind": 2,
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "peekOfCode": "def format_evidence_for_prompt(evidence_list: List[Evidence]) -> str:\n    \"\"\"Format evidence list for inclusion in prompts\"\"\"\n    if not evidence_list:\n        return \"No direct evidence found for this criterion.\"\n    text = \"\"\n    for ev in evidence_list:\n        text += f\"\\n- Goal: {ev.goal}\\n\"\n        text += f\"  Found: {ev.found}\\n\"\n        text += f\"  Location: {ev.location}\\n\"\n        text += f\"  Rationale: {ev.rationale}\\n\"",
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "prosecutor",
+        "kind": 2,
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "peekOfCode": "def prosecutor(state: AgentState) -> Dict[str, Any]:\n    return create_judge_node(\"Prosecutor\")(state)\ndef defense(state: AgentState) -> Dict[str, Any]:\n    return create_judge_node(\"Defense\")(state)\ndef tech_lead(state: AgentState) -> Dict[str, Any]:\n    return create_judge_node(\"TechLead\")(state)",
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "defense",
+        "kind": 2,
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "peekOfCode": "def defense(state: AgentState) -> Dict[str, Any]:\n    return create_judge_node(\"Defense\")(state)\ndef tech_lead(state: AgentState) -> Dict[str, Any]:\n    return create_judge_node(\"TechLead\")(state)",
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "tech_lead",
+        "kind": 2,
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "peekOfCode": "def tech_lead(state: AgentState) -> Dict[str, Any]:\n    return create_judge_node(\"TechLead\")(state)",
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "PROSECUTOR_PROMPT",
+        "kind": 5,
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "peekOfCode": "PROSECUTOR_PROMPT = \"\"\"You are the PROSECUTOR in this Digital Courtroom. \nYour core philosophy: \"Trust No One. Assume Vibe Coding.\"\nYour mission: Scrutinize the evidence for gaps, security flaws, and laziness. \nBe harsh but factual. Look for what's MISSING.\nScoring guidelines (1-5):\n1 - Complete failure, missing core requirements\n2 - Significant gaps, multiple missing elements\n3 - Adequate but with notable issues\n4 - Good implementation with minor issues\n5 - Excellent, no issues found",
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "DEFENSE_PROMPT",
+        "kind": 5,
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "peekOfCode": "DEFENSE_PROMPT = \"\"\"You are the DEFENSE ATTORNEY in this Digital Courtroom. \nYour core philosophy: \"Reward Effort and Intent. Look for the 'Spirit of the Law'.\"\nYour mission: Highlight creative workarounds, deep thought, and effort, \neven if implementation is imperfect.\nScoring guidelines (1-5):\n1 - No effort shown, completely missing\n2 - Attempted but fundamentally broken\n3 - Good effort with working core concepts\n4 - Solid implementation with creative solutions\n5 - Exceptional work exceeding requirements",
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "TECH_LEAD_PROMPT",
+        "kind": 5,
+        "importPath": "src.nodes.judges",
+        "description": "src.nodes.judges",
+        "peekOfCode": "TECH_LEAD_PROMPT = \"\"\"You are the TECH LEAD in this Digital Courtroom. \nYour core philosophy: \"Does it actually work? Is it maintainable?\"\nYour mission: Evaluate architectural soundness, code cleanliness, and practical viability.\nScoring guidelines (1-5):\n1 - Unusable, fundamentally broken\n2 - Works but has major architectural issues\n3 - Functional with some technical debt\n4 - Solid architecture, production-ready\n5 - Exemplary design, best practices followed\nYou MUST base your score on the EVIDENCE provided, not assumptions.",
+        "detail": "src.nodes.judges",
+        "documentation": {}
+    },
+    {
+        "label": "chief_justice",
+        "kind": 2,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "def chief_justice(state: AgentState) -> Dict:\n    \"\"\"Chief Justice synthesis engine with deterministic conflict resolution.\"\"\"\n    # Group opinions by criterion\n    opinions_by_criterion = {}\n    for opinion in state[\"opinions\"]:\n        criterion_id = opinion.criterion_id\n        if criterion_id not in opinions_by_criterion:\n            opinions_by_criterion[criterion_id] = []\n        opinions_by_criterion[criterion_id].append(opinion)\n    # Process each criterion",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "apply_synthesis_rules",
+        "kind": 2,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "def apply_synthesis_rules(opinions: List[JudicialOpinion], dimension: Dict, state: AgentState) -> tuple[int, str]:\n    \"\"\"Apply deterministic synthesis rules to resolve conflicts.\"\"\"\n    scores = [op.score for op in opinions]\n    max_score = max(scores)\n    min_score = min(scores)\n    variance = max_score - min_score\n    # Rule 1: Security Override\n    if dimension['id'] in ['safe_tool_engineering', 'structured_output_enforcement']:\n        prosecutor_opinion = next((op for op in opinions if op.judge == \"Prosecutor\"), None)\n        if prosecutor_opinion and prosecutor_opinion.score <= 2:",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "evidence_supports_claim",
+        "kind": 2,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "def evidence_supports_claim(dimension_id: str, state: AgentState) -> bool:\n    \"\"\"Check if forensic evidence supports claims.\"\"\"\n    evidences = []\n    for evidence_list in state[\"evidences\"].values():\n        evidences.extend(evidence_list)\n    # Look for evidence related to this dimension\n    relevant_evidence = [ev for ev in evidences if dimension_id.lower() in ev.goal.lower()]\n    # If evidence exists and has high confidence, support the claim\n    return any(ev.confidence > 0.7 and ev.found for ev in relevant_evidence)\ndef calculate_weighted_score(opinions: List[JudicialOpinion], state: AgentState, dimension: Dict) -> int:",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_weighted_score",
+        "kind": 2,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "def calculate_weighted_score(opinions: List[JudicialOpinion], state: AgentState, dimension: Dict) -> int:\n    \"\"\"Calculate weighted score based on evidence support.\"\"\"\n    # Tech Lead gets highest weight for technical criteria\n    if dimension['target_artifact'] == 'github_repo':\n        tech_lead_opinion = next((op for op in opinions if op.judge == \"TechLead\"), None)\n        if tech_lead_opinion:\n            return tech_lead_opinion.score\n    # For documentation criteria, Defense gets more weight\n    elif dimension['target_artifact'] == 'pdf_report':\n        defense_opinion = next((op for op in opinions if op.judge == \"Defense\"), None)",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "generate_remediation",
+        "kind": 2,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "def generate_remediation(opinions: List[JudicialOpinion], dimension: Dict, final_score: int) -> str:\n    \"\"\"Generate specific remediation based on score and opinions.\"\"\"\n    if final_score >= 4:\n        return \"Excellent implementation. Maintain current standards.\"\n    elif final_score == 3:\n        return \"Adequate but needs improvement. Focus on the specific issues identified by the judges.\"\n    elif final_score == 2:\n        remediation = f\"Significant issues detected in {dimension['name']}. \"\n        # Add specific advice based on dimension\n        if dimension['id'] == 'git_forensic_analysis':",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "generate_executive_summary",
+        "kind": 2,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "def generate_executive_summary(criteria_results: List[CriterionResult], overall_score: float) -> str:\n    \"\"\"Generate executive summary of the audit.\"\"\"\n    high_scoring = [cr for cr in criteria_results if cr.final_score >= 4]\n    low_scoring = [cr for cr in criteria_results if cr.final_score <= 2]\n    summary = f\"# Automaton Auditor Audit Report\\n\\n\"\n    summary += f\"**Overall Score: {overall_score:.1f}/5.0**\\n\\n\"\n    if overall_score >= 4.0:\n        summary += \"## Executive Summary\\n\\n\"\n        summary += \"This repository demonstrates excellent implementation of the Automaton Auditor architecture. \"\n        summary += \"The system shows strong understanding of parallel orchestration, proper state management, and security practices.\\n\\n\"",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "generate_overall_remediation",
+        "kind": 2,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "def generate_overall_remediation(criteria_results: List[CriterionResult]) -> str:\n    \"\"\"Generate overall remediation plan.\"\"\"\n    priority_issues = [cr for cr in criteria_results if cr.final_score <= 2]\n    if not priority_issues:\n        return \"No critical issues identified. Continue maintaining current standards.\"\n    remediation = \"## Priority Remediation Plan\\n\\n\"\n    # Order by severity\n    priority_issues.sort(key=lambda x: x.final_score)\n    for i, issue in enumerate(priority_issues, 1):\n        remediation += f\"### {i}. {issue.name}\\n\\n\"",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "generate_markdown_report",
+        "kind": 2,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "def generate_markdown_report(audit_report: AuditReport) -> str:\n    \"\"\"Generate complete markdown audit report.\"\"\"\n    report = audit_report.executive_summary + \"\\n\\n\"\n    report += \"## Detailed Criterion Breakdown\\n\\n\"\n    for criterion in audit_report.criteria:\n        report += f\"### {criterion.name}\\n\\n\"\n        report += f\"**Final Score: {criterion.final_score}/5**\\n\\n\"\n        # Judge opinions\n        if criterion.judge_opinions:\n            report += \"**Judicial Analysis:**\\n\\n\"",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "synthesis_rules",
+        "kind": 5,
+        "importPath": "src.nodes.justice",
+        "description": "src.nodes.justice",
+        "peekOfCode": "synthesis_rules = rubric['synthesis_rules']\ndef chief_justice(state: AgentState) -> Dict:\n    \"\"\"Chief Justice synthesis engine with deterministic conflict resolution.\"\"\"\n    # Group opinions by criterion\n    opinions_by_criterion = {}\n    for opinion in state[\"opinions\"]:\n        criterion_id = opinion.criterion_id\n        if criterion_id not in opinions_by_criterion:\n            opinions_by_criterion[criterion_id] = []\n        opinions_by_criterion[criterion_id].append(opinion)",
+        "detail": "src.nodes.justice",
+        "documentation": {}
+    },
+    {
+        "label": "ingest_pdf",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def ingest_pdf(pdf_path: str) -> List[str]:\n    \"\"\"\n    Ingest PDF and return chunks of text.\n    This is the function detectives.py is trying to import!\n    Args:\n        pdf_path: Path to PDF file\n    Returns:\n        List of text chunks\n    \"\"\"\n    if not os.path.exists(pdf_path):",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "query_pdf",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def query_pdf(chunks: List[str], question: str) -> List[str]:\n    \"\"\"\n    Find relevant chunks for a question.\n    This is the other function detectives.py is trying to import!\n    Args:\n        chunks: List of text chunks from ingest_pdf\n        question: Question to find relevant chunks for\n    Returns:\n        List of relevant chunks\n    \"\"\"",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "extract_text_from_pdf",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def extract_text_from_pdf(pdf_path: str) -> str:\n    \"\"\"\n    Extract all text from PDF using Docling\n    Returns:\n        Extracted text as string\n    \"\"\"\n    if not os.path.exists(pdf_path):\n        return \"\"\n    try:\n        # Use Docling DocumentConverter",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "extract_images_from_pdf",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def extract_images_from_pdf(pdf_path: str) -> List[bytes]:\n    \"\"\"\n    Extract images from PDF using Docling\n    Returns:\n        List of image bytes\n    \"\"\"\n    if not os.path.exists(pdf_path):\n        return []\n    try:\n        # Use Docling DocumentConverter",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "extract_file_paths_from_text",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def extract_file_paths_from_text(text: str) -> List[str]:\n    \"\"\"Extract file paths mentioned in text using regex\"\"\"\n    python_pattern = r'src/[a-zA-Z0-9_/]+\\.py'\n    matches = re.findall(python_pattern, text)\n    code_block_pattern = r'```[a-zA-Z]*\\n(.*?)```'\n    code_blocks = re.findall(code_block_pattern, text, re.DOTALL)\n    for block in code_blocks:\n        code_matches = re.findall(python_pattern, block)\n        matches.extend(code_matches)\n    return list(set(matches))",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "extract_concepts",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def extract_concepts(text: str) -> Dict[str, bool]:\n    \"\"\"Check for key concepts in text\"\"\"\n    concepts = [\n        \"Dialectical Synthesis\", \"Fan-In\", \"Fan-Out\", \n        \"Metacognition\", \"State Synchronization\", \"Parallel Execution\",\n        \"Evidence Aggregator\", \"Chief Justice\", \"LangGraph\", \"StateGraph\"\n    ]\n    result = {}\n    text_lower = text.lower()\n    for concept in concepts:",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "chunk_text",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def chunk_text(text: str, chunk_size: int = 2000, overlap: int = 200) -> List[str]:\n    \"\"\"Split text into chunks for LLM processing\"\"\"\n    if not text:\n        return []\n    words = text.split()\n    chunks = []\n    if len(words) * 5 < chunk_size:\n        return [text]\n    i = 0\n    while i < len(words):",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "cross_reference_paths",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def cross_reference_paths(claimed_paths: List[str], actual_files: List[str]) -> Dict[str, List[str]]:\n    \"\"\"Cross-reference claimed file paths with actual files\"\"\"\n    verified = []\n    hallucinated = []\n    actual_files_normalized = [f.replace('\\\\', '/') for f in actual_files]\n    for path in claimed_paths:\n        normalized_path = path.replace('\\\\', '/')\n        if normalized_path in actual_files_normalized:\n            verified.append(path)\n        else:",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "extract_metadata",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def extract_metadata(text: str) -> Dict[str, Any]:\n    \"\"\"Extract basic metadata from PDF text\"\"\"\n    if not text:\n        return {\n            \"word_count\": 0,\n            \"estimated_pages\": 0,\n            \"has_code_blocks\": False,\n            \"has_diagrams\": False\n        }\n    words = text.split()",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "get_pdf_hash",
+        "kind": 2,
+        "importPath": "src.tools.doc_tools",
+        "description": "src.tools.doc_tools",
+        "peekOfCode": "def get_pdf_hash(pdf_path: str) -> str:\n    \"\"\"Get hash of PDF file for caching\"\"\"\n    if not os.path.exists(pdf_path):\n        return \"\"\n    with open(pdf_path, 'rb') as f:\n        return hashlib.md5(f.read()).hexdigest()",
+        "detail": "src.tools.doc_tools",
+        "documentation": {}
+    },
+    {
+        "label": "clone_repository",
+        "kind": 2,
+        "importPath": "src.tools.repo_tools",
+        "description": "src.tools.repo_tools",
+        "peekOfCode": "def clone_repository(repo_url: str) -> Tuple[Path, tempfile.TemporaryDirectory]:\n    \"\"\"\n    Safely clone a repository into a temporary directory.\n    Returns:\n        Tuple of (repo_path, temp_dir) - caller must clean up temp_dir\n    \"\"\"\n    temp_dir = tempfile.TemporaryDirectory()\n    repo_path = Path(temp_dir.name)\n    try:\n        # Use subprocess, NOT os.system",
+        "detail": "src.tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "extract_git_history",
+        "kind": 2,
+        "importPath": "src.tools.repo_tools",
+        "description": "src.tools.repo_tools",
+        "peekOfCode": "def extract_git_history(repo_path: Path, max_commits: int = 50) -> List[Dict[str, Any]]:\n    \"\"\"\n    Extract git commit history deterministically.\n    Returns:\n        List of commits with hash, message, author, date\n    \"\"\"\n    try:\n        # Get commit history in reverse chronological order\n        result = subprocess.run(\n            [\"git\", \"log\", f\"--max-count={max_commits}\", \"--pretty=format:%h|%s|%an|%at\"],",
+        "detail": "src.tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "analyze_commit_patterns",
+        "kind": 2,
+        "importPath": "src.tools.repo_tools",
+        "description": "src.tools.repo_tools",
+        "peekOfCode": "def analyze_commit_patterns(commits: List[Dict[str, Any]]) -> Dict[str, Any]:\n    \"\"\"\n    Deterministic analysis of commit patterns - NO LLM\n    Returns:\n        Dict with pattern analysis results\n    \"\"\"\n    if not commits or len(commits) == 0:\n        return {\n            \"total_commits\": 0,\n            \"bulk_upload_detected\": True,",
+        "detail": "src.tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "ast_parse_state_management",
+        "kind": 2,
+        "importPath": "src.tools.repo_tools",
+        "description": "src.tools.repo_tools",
+        "peekOfCode": "def ast_parse_state_management(repo_path: Path) -> Dict[str, Any]:\n    \"\"\"\n    Use AST to analyze state management code - NO LLM\n    Returns:\n        Dict with analysis results\n    \"\"\"\n    state_file = repo_path / \"src\" / \"state.py\"\n    if not state_file.exists():\n        return {\n            \"exists\": False,",
+        "detail": "src.tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "ast_parse_graph_structure",
+        "kind": 2,
+        "importPath": "src.tools.repo_tools",
+        "description": "src.tools.repo_tools",
+        "peekOfCode": "def ast_parse_graph_structure(repo_path: Path) -> Dict[str, Any]:\n    \"\"\"\n    Use AST to analyze graph structure for parallelism - NO LLM\n    Returns:\n        Dict with parallelism analysis\n    \"\"\"\n    graph_file = repo_path / \"src\" / \"graph.py\"\n    if not graph_file.exists():\n        return {\n            \"exists\": False,",
+        "detail": "src.tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "check_tool_safety",
+        "kind": 2,
+        "importPath": "src.tools.repo_tools",
+        "description": "src.tools.repo_tools",
+        "peekOfCode": "def check_tool_safety(repo_path: Path) -> Dict[str, Any]:\n    \"\"\"\n    Check for safe tooling practices - NO LLM\n    Returns:\n        Dict with safety analysis\n    \"\"\"\n    tools_dir = repo_path / \"src\" / \"tools\"\n    if not tools_dir.exists():\n        return {\n            \"has_tempfile\": False,",
+        "detail": "src.tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "check_structured_output",
+        "kind": 2,
+        "importPath": "src.tools.repo_tools",
+        "description": "src.tools.repo_tools",
+        "peekOfCode": "def check_structured_output(repo_path: Path) -> Dict[str, Any]:\n    \"\"\"\n    Check for structured output usage in judges - NO LLM\n    Returns:\n        Dict with structured output analysis\n    \"\"\"\n    judges_file = repo_path / \"src\" / \"nodes\" / \"judges.py\"\n    if not judges_file.exists():\n        return {\n            \"has_structured_output\": False,",
+        "detail": "src.tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "get_repo_files",
+        "kind": 2,
+        "importPath": "src.tools.repo_tools",
+        "description": "src.tools.repo_tools",
+        "peekOfCode": "def get_repo_files(repo_path: Path) -> List[str]:\n    \"\"\"Get list of all Python files in repo\"\"\"\n    files = []\n    for py_file in repo_path.glob(\"**/*.py\"):\n        relative = str(py_file.relative_to(repo_path))\n        files.append(relative)\n    return files",
+        "detail": "src.tools.repo_tools",
+        "documentation": {}
+    },
+    {
+        "label": "encode_image_to_base64",
+        "kind": 2,
+        "importPath": "src.tools.vision_tools",
+        "description": "src.tools.vision_tools",
+        "peekOfCode": "def encode_image_to_base64(image_bytes: bytes) -> str:\n    \"\"\"Encode image bytes to base64 string\"\"\"\n    return base64.b64encode(image_bytes).decode('utf-8')\ndef analyze_diagram_with_ollama(image_bytes: bytes, llm) -> Dict[str, Any]:\n    \"\"\"\n    Analyze diagram using Ollama vision model\n    Note: This is a placeholder - actual implementation depends on\n    your specific Ollama vision model and API\n    \"\"\"\n    # For Ollama vision models, you typically need to:",
+        "detail": "src.tools.vision_tools",
+        "documentation": {}
+    },
+    {
+        "label": "analyze_diagram_with_ollama",
+        "kind": 2,
+        "importPath": "src.tools.vision_tools",
+        "description": "src.tools.vision_tools",
+        "peekOfCode": "def analyze_diagram_with_ollama(image_bytes: bytes, llm) -> Dict[str, Any]:\n    \"\"\"\n    Analyze diagram using Ollama vision model\n    Note: This is a placeholder - actual implementation depends on\n    your specific Ollama vision model and API\n    \"\"\"\n    # For Ollama vision models, you typically need to:\n    # 1. Save image to temp file\n    # 2. Pass file path to model\n    # 3. Or use base64 encoded images",
+        "detail": "src.tools.vision_tools",
+        "documentation": {}
+    },
+    {
+        "label": "classify_diagram_type",
+        "kind": 2,
+        "importPath": "src.tools.vision_tools",
+        "description": "src.tools.vision_tools",
+        "peekOfCode": "def classify_diagram_type(image_bytes: bytes) -> str:\n    \"\"\"\n    Simple heuristic to classify diagram type without LLM\n    This is a fallback when vision LLM is unavailable\n    \"\"\"\n    # In a real implementation, you might use image processing\n    # libraries to detect shapes, arrows, etc.\n    # Placeholder - always returns unknown\n    return \"unknown\"\ndef detect_parallel_branches(image_bytes: bytes) -> bool:",
+        "detail": "src.tools.vision_tools",
+        "documentation": {}
+    },
+    {
+        "label": "detect_parallel_branches",
+        "kind": 2,
+        "importPath": "src.tools.vision_tools",
+        "description": "src.tools.vision_tools",
+        "peekOfCode": "def detect_parallel_branches(image_bytes: bytes) -> bool:\n    \"\"\"\n    Detect if diagram shows parallel branches without LLM\n    \"\"\"\n    # Placeholder - always returns False\n    return False",
+        "detail": "src.tools.vision_tools",
+        "documentation": {}
+    },
+    {
+        "label": "InstructionBundle",
+        "kind": 6,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "class InstructionBundle:\n    dimension_id: Optional[str]\n    name: Optional[str]\n    target_artifacts: List[str]\n    forensic_instruction: Optional[str]\n    judicial_logic: Optional[str]\n    synthesis_rules: Optional[str]\n    raw: Dimension\ndef build_instruction_bundles(rubric: Rubric) -> List[InstructionBundle]:\n    \"\"\"",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "ContextBuilder",
+        "kind": 6,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "class ContextBuilder:\n    \"\"\"\n    Dispatch dimension instructions to appropriate agents based on target_artifact.\n    Usage:\n    - cb = ContextBuilder(rubric)\n    - repo_detective_instr = cb.get_detective_instructions(\"github_repo\")\n    - pdf_detective_instr = cb.get_detective_instructions(\"pdf_report\")\n    - img_detective_instr = cb.get_detective_instructions(\"pdf_images\")\n    - judge_criteria_blocks = cb.format_criteria_for_judges()\n    \"\"\"",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "load_rubric",
+        "kind": 2,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "def load_rubric(path: str | Path) -> Rubric:\n    \"\"\"\n    Load rubric JSON from a file path.\n    Parameters\n    - path: str | Path to the rubric JSON file (e.g., ./rubric.json)\n    Returns\n    - Parsed rubric object as a dict\n    \"\"\"\n    p = Path(path)\n    with p.open(\"r\", encoding=\"utf-8\") as f:",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "parse_dimensions",
+        "kind": 2,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "def parse_dimensions(rubric: Rubric) -> List[Dimension]:\n    \"\"\"\n    Extract the list of dimensions from the rubric spec.\n    The Week 2 rubric uses a top-level key 'dimensions' which is a list\n    of dimension objects that include at least the following keys (by convention):\n      - id / dimension_id\n      - name\n      - description\n      - forensic_instruction (str)\n      - judicial_logic (str)",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "extract_instructions",
+        "kind": 2,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "def extract_instructions(dimension: Dimension) -> Tuple[Optional[str], Optional[str], Optional[str]]:\n    \"\"\"\n    From a dimension entry, extract the core instruction fields:\n    - forensic_instruction\n    - judicial_logic\n    - synthesis_rules\n    Returns a tuple (forensic_instruction, judicial_logic, synthesis_rules)\n    with None for any missing field.\n    \"\"\"\n    forensic = dimension.get(\"forensic_instruction\")",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "get_target_artifacts",
+        "kind": 2,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "def get_target_artifacts(dimension: Dimension) -> List[str]:\n    \"\"\"\n    Normalize the 'target_artifact' declaration for a dimension into a list of strings.\n    Common values include: 'github_repo', 'pdf_report', 'pdf_images'.\n    \"\"\"\n    target = dimension.get(\"target_artifact\")\n    if isinstance(target, str):\n        return [target]\n    if isinstance(target, list):\n        return [t for t in target if isinstance(t, str)]",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "build_instruction_bundles",
+        "kind": 2,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "def build_instruction_bundles(rubric: Rubric) -> List[InstructionBundle]:\n    \"\"\"\n    Convert rubric dimensions to normalized InstructionBundle entries.\n    \"\"\"\n    bundles: List[InstructionBundle] = []\n    for d in parse_dimensions(rubric):\n        forensic, judicial, synthesis = extract_instructions(d)\n        bundles.append(\n            InstructionBundle(\n                dimension_id=(d.get(\"dimension_id\") or d.get(\"id\")) if isinstance(d.get(\"dimension_id\") or d.get(\"id\"), str) else None,",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "format_criterion_for_judge",
+        "kind": 2,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "def format_criterion_for_judge(name: str, judicial_logic: str, synthesis_rules: str) -> str:\n    \"\"\"\n    Create a prompt-ready criterion section for judges.\n    \"\"\"\n    parts: List[str] = []\n    parts.append(f\"Criterion: {name}\")\n    if judicial_logic:\n        parts.append(\"Judicial Logic:\")\n        parts.append(judicial_logic.strip())\n    if synthesis_rules:",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "format_all_criteria_for_judges",
+        "kind": 2,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "def format_all_criteria_for_judges(dimensions: Iterable[Dimension]) -> List[str]:\n    \"\"\"\n    Format a collection of raw dimension dicts (already parsed) for judge prompts.\n    \"\"\"\n    out: List[str] = []\n    for d in dimensions:\n        name = d.get(\"name\") or d.get(\"dimension_id\") or d.get(\"id\") or \"Unnamed Criterion\"\n        forensic, judicial, synthesis = extract_instructions(d)\n        block = format_criterion_for_judge(name=str(name), judicial_logic=judicial or \"\", synthesis_rules=synthesis or \"\")\n        out.append(block)",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "Rubric",
+        "kind": 5,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "Rubric = Dict[str, Any]\nDimension = Dict[str, Any]\ndef load_rubric(path: str | Path) -> Rubric:\n    \"\"\"\n    Load rubric JSON from a file path.\n    Parameters\n    - path: str | Path to the rubric JSON file (e.g., ./rubric.json)\n    Returns\n    - Parsed rubric object as a dict\n    \"\"\"",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "Dimension",
+        "kind": 5,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "Dimension = Dict[str, Any]\ndef load_rubric(path: str | Path) -> Rubric:\n    \"\"\"\n    Load rubric JSON from a file path.\n    Parameters\n    - path: str | Path to the rubric JSON file (e.g., ./rubric.json)\n    Returns\n    - Parsed rubric object as a dict\n    \"\"\"\n    p = Path(path)",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "__all__",
+        "kind": 5,
+        "importPath": "src.utils.rubric_loader",
+        "description": "src.utils.rubric_loader",
+        "peekOfCode": "__all__ = [\n    \"Rubric\",\n    \"Dimension\",\n    \"load_rubric\",\n    \"parse_dimensions\",\n    \"extract_instructions\",\n    \"get_target_artifacts\",\n    \"InstructionBundle\",\n    \"build_instruction_bundles\",\n    \"ContextBuilder\",",
+        "detail": "src.utils.rubric_loader",
+        "documentation": {}
+    },
+    {
+        "label": "AuditContextManager",
+        "kind": 6,
+        "importPath": "src.context_manager",
+        "description": "src.context_manager",
+        "peekOfCode": "class AuditContextManager:\n    \"\"\"Manages audit lifecycle and cleanup.\"\"\"\n    def __init__(self):\n        self.cleanup_registered = False\n    def register_cleanup(self):\n        \"\"\"Register cleanup handlers for graceful shutdown.\"\"\"\n        if self.cleanup_registered:\n            return\n        # Register cleanup on normal exit\n        atexit.register(self._cleanup)",
+        "detail": "src.context_manager",
+        "documentation": {}
+    },
+    {
+        "label": "setup_audit_context",
+        "kind": 2,
+        "importPath": "src.context_manager",
+        "description": "src.context_manager",
+        "peekOfCode": "def setup_audit_context():\n    \"\"\"Setup audit context with cleanup handlers.\"\"\"\n    _audit_context.register_cleanup()\n    return _audit_context",
+        "detail": "src.context_manager",
+        "documentation": {}
+    },
+    {
+        "label": "_audit_context",
+        "kind": 5,
+        "importPath": "src.context_manager",
+        "description": "src.context_manager",
+        "peekOfCode": "_audit_context = AuditContextManager()\ndef setup_audit_context():\n    \"\"\"Setup audit context with cleanup handlers.\"\"\"\n    _audit_context.register_cleanup()\n    return _audit_context",
+        "detail": "src.context_manager",
+        "documentation": {}
+    },
+    {
+        "label": "create_graph",
+        "kind": 2,
+        "importPath": "src.graph",
+        "description": "src.graph",
+        "peekOfCode": "def create_graph():\n    # Load rubric once\n    rubric = load_rubric(\"rubric.json\")\n    context_builder = ContextBuilder(rubric)\n    # Initialize graph\n    workflow = StateGraph(AgentState)\n    # Add ALL nodes\n    workflow.add_node(\"repo_investigator\", repo_investigator)\n    workflow.add_node(\"doc_analyst\", doc_analyst)\n    workflow.add_node(\"vision_inspector\", vision_inspector)",
+        "detail": "src.graph",
+        "documentation": {}
+    },
+    {
+        "label": "get_env_variable",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_env_variable(var_name: str, default: Optional[str] = None) -> Optional[str]:\n    \"\"\"Get environment variable, with option to reload if needed\"\"\"\n    # Try to get from environment\n    value = os.getenv(var_name)\n    # If not found, try loading .env again (as fallback)\n    if value is None:\n        load_dotenv(override=True)\n        value = os.getenv(var_name)\n    return value or default\ndef get_detective_model() -> str:",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_detective_model",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_detective_model() -> str:\n    \"\"\"Get detective model from environment\"\"\"\n    model = get_env_variable(\"DETECTIVE_MODEL\")\n    if not model:\n        print(\"⚠️ DETECTIVE_MODEL not set, using default: qwen2.5-coder:7b\")\n        return \"qwen2.5-coder:7b\"\n    return model\ndef get_judge_model() -> str:\n    \"\"\"Get judge model from environment\"\"\"\n    model = get_env_variable(\"JUDGE_MODEL\")",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_judge_model",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_judge_model() -> str:\n    \"\"\"Get judge model from environment\"\"\"\n    model = get_env_variable(\"JUDGE_MODEL\")\n    if not model:\n        print(\"⚠️ JUDGE_MODEL not set, using default: deepseek-v3.1:671b-cloud\")\n        return \"deepseek-v3.1:671b-cloud\"\n    return model\ndef get_vision_model() -> str:\n    \"\"\"Get vision model from environment\"\"\"\n    model = get_env_variable(\"VISION_MODEL\")",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_vision_model",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_vision_model() -> str:\n    \"\"\"Get vision model from environment\"\"\"\n    model = get_env_variable(\"VISION_MODEL\")\n    if not model:\n        print(\"⚠️ VISION_MODEL not set, using detective model as fallback\")\n        return get_detective_model()\n    return model\ndef get_ollama_base_url() -> str:\n    \"\"\"Get Ollama base URL from environment\"\"\"\n    url = get_env_variable(\"OLLAMA_BASE_URL\", \"http://localhost:11434\")",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_ollama_base_url",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_ollama_base_url() -> str:\n    \"\"\"Get Ollama base URL from environment\"\"\"\n    url = get_env_variable(\"OLLAMA_BASE_URL\", \"http://localhost:11434\")\n    return url\ndef get_llm(\n    model: Optional[str] = None,\n    temperature: float = 0.0,\n    num_predict: Optional[int] = None,\n    base_url: Optional[str] = None\n):",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_llm",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_llm(\n    model: Optional[str] = None,\n    temperature: float = 0.0,\n    num_predict: Optional[int] = None,\n    base_url: Optional[str] = None\n):\n    \"\"\"Get Ollama LLM instance\"\"\"\n    base_url = base_url or get_ollama_base_url()\n    if model is None:\n        raise ValueError(\"❌ No model specified! Check your .env file\")",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_detective_llm",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_detective_llm():\n    \"\"\"Get LLM for detective pattern recognition\"\"\"\n    model = get_detective_model()\n    print(f\"🔍 Detective using model: {model}\")\n    return get_llm(model=model, temperature=0.0)\ndef get_judge_llm():\n    \"\"\"Get LLM for judge personas\"\"\"\n    model = get_judge_model()\n    print(f\"⚖️ Judge using model: {model}\")\n    return get_llm(model=model, temperature=0.2)",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_judge_llm",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_judge_llm():\n    \"\"\"Get LLM for judge personas\"\"\"\n    model = get_judge_model()\n    print(f\"⚖️ Judge using model: {model}\")\n    return get_llm(model=model, temperature=0.2)\ndef get_vision_llm():\n    \"\"\"Get multimodal LLM for vision tasks\"\"\"\n    model = get_vision_model()\n    print(f\"👁️ Vision using model: {model}\")\n    return get_llm(model=model, temperature=0.0)",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_vision_llm",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_vision_llm():\n    \"\"\"Get multimodal LLM for vision tasks\"\"\"\n    model = get_vision_model()\n    print(f\"👁️ Vision using model: {model}\")\n    return get_llm(model=model, temperature=0.0)\ndef get_fallback_llm():\n    \"\"\"Get fallback LLM when primary fails\"\"\"\n    return get_detective_llm()",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_fallback_llm",
+        "kind": 2,
+        "importPath": "src.llm",
+        "description": "src.llm",
+        "peekOfCode": "def get_fallback_llm():\n    \"\"\"Get fallback LLM when primary fails\"\"\"\n    return get_detective_llm()",
+        "detail": "src.llm",
+        "documentation": {}
+    },
+    {
+        "label": "MockLLM",
+        "kind": 6,
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "peekOfCode": "class MockLLM:\n    \"\"\"Mock LLM for testing without API calls\"\"\"\n    def invoke(self, prompt: str) -> Any:\n        class MockResponse:\n            def __init__(self):\n                self.content = json.dumps({\n                    \"pattern_type\": \"iterative\",\n                    \"understanding_level\": \"moderate\",\n                    \"confidence\": 0.8,\n                    \"rationale\": \"Mock analysis\"",
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "get_llm_for_task",
+        "kind": 2,
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "peekOfCode": "def get_llm_for_task(task_type: str):\n    \"\"\"\n    Get appropriate LLM for task type\n    Args:\n        task_type: \"detective\", \"judge\", \"vision\", \"synthesis\"\n    \"\"\"\n    if DEBUG_MODE:\n        return MockLLM()\n    if task_type == \"vision\":\n        return get_vision_llm()",
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "mock_judicial_opinion",
+        "kind": 2,
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "peekOfCode": "def mock_judicial_opinion(criterion_id: str, judge_type: str) -> Optional[Any]:\n    \"\"\"Return mock opinion in debug mode\"\"\"\n    if not DEBUG_MODE:\n        return None\n    from src.state import JudicialOpinion\n    # Return consistent mock opinions for testing\n    mock_scores = {\n        \"git_forensic_analysis\": {\"Prosecutor\": 2, \"Defense\": 4, \"TechLead\": 3},\n        \"state_management_rigor\": {\"Prosecutor\": 3, \"Defense\": 4, \"TechLead\": 3},\n        \"graph_orchestration\": {\"Prosecutor\": 1, \"Defense\": 3, \"TechLead\": 2},",
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG_MODE",
+        "kind": 5,
+        "importPath": "src.llm_router",
+        "description": "src.llm_router",
+        "peekOfCode": "DEBUG_MODE = os.getenv(\"DEBUG_MODE\", \"false\").lower() == \"true\"\ndef get_llm_for_task(task_type: str):\n    \"\"\"\n    Get appropriate LLM for task type\n    Args:\n        task_type: \"detective\", \"judge\", \"vision\", \"synthesis\"\n    \"\"\"\n    if DEBUG_MODE:\n        return MockLLM()\n    if task_type == \"vision\":",
+        "detail": "src.llm_router",
+        "documentation": {}
+    },
+    {
+        "label": "Evidence",
+        "kind": 6,
+        "importPath": "src.state",
+        "description": "src.state",
+        "peekOfCode": "class Evidence(BaseModel):\n    goal: str = Field()\n    found: bool = Field(description=\"Whether the artifact exists\")\n    content: Optional[str] = Field(default=None)\n    location: str = Field(\n        description=\"File path or commit hash\",\n    )\n    rationale: str = Field(\n        description=\"Your rationale for your confidence \"\n        \"on the evidence you find for this particular goal\",",
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "JudicialOpinion",
+        "kind": 6,
+        "importPath": "src.state",
+        "description": "src.state",
+        "peekOfCode": "class JudicialOpinion(BaseModel):\n    judge: Literal[\"Prosecutor\", \"Defense\", \"TechLead\"]\n    criterion_id: str\n    score: int = Field(ge=1, le=5)\n    argument: str\n    cited_evidence: List[str]\n# --- Chief Justice Output ---\nclass CriterionResult(BaseModel):\n    dimension_id: str\n    name: str",
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "CriterionResult",
+        "kind": 6,
+        "importPath": "src.state",
+        "description": "src.state",
+        "peekOfCode": "class CriterionResult(BaseModel):\n    dimension_id: str\n    name: str\n    final_score: int = Field(ge=1, le=5)\n    judge_opinions: List[JudicialOpinion]\n    dissent_summary: Optional[str] = Field(\n        default=None,\n        description=\"Required when score variance > 2\",\n    )\n    remediation: str = Field(",
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AuditReport",
+        "kind": 6,
+        "importPath": "src.state",
+        "description": "src.state",
+        "peekOfCode": "class AuditReport(BaseModel):\n    repo_url: str\n    executive_summary: str\n    overall_score: float\n    criteria: List[CriterionResult]\n    remediation_plan: str\n# --- Graph State ---\nclass AgentState(TypedDict):\n    repo_url: str\n    pdf_path: str",
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "AgentState",
+        "kind": 6,
+        "importPath": "src.state",
+        "description": "src.state",
+        "peekOfCode": "class AgentState(TypedDict):\n    repo_url: str\n    pdf_path: str\n    config: Dict[str, Any]  # For rubric and other configuration\n    rubric_dimensions: List[Dict]\n    # Use reducers to prevent parallel agents\n    # from overwriting data\n    evidences: Annotated[\n        Dict[str, List[Evidence]], operator.ior\n    ]",
+        "detail": "src.state",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "run_audit",
+        "description": "run_audit",
+        "peekOfCode": "def main():\n    # Load environment variables\n    load_dotenv()\n    parser = argparse.ArgumentParser(description=\"Automaton Auditor - Multi-agent code audit system\")\n    parser.add_argument(\"--repo-url\", required=True, help=\"GitHub repository URL to audit\")\n    parser.add_argument(\"--pdf-path\", default=\"./reports/final_report.pdf\", \n                       help=\"Path to PDF report in the repository (default: ./reports/final_report.pdf)\")\n    parser.add_argument(\"--output\", default=\"./audit/report_oneself_generated/report.md\",\n                       help=\"Output path for audit report\")\n    parser.add_argument(\"--debug\", action=\"store_true\", help=\"Enable debug mode\")",
+        "detail": "run_audit",
+        "documentation": {}
+    },
+    {
+        "label": "env_path",
+        "kind": 5,
+        "importPath": "run_audit",
+        "description": "run_audit",
+        "peekOfCode": "env_path = Path(__file__).parent.absolute() / '.env'\nprint(f\"📂 Loading .env from: {env_path}\")\nload_dotenv(dotenv_path=env_path, override=True)\n# Verify they loaded (optional)\nprint(f\"✅ DETECTIVE_MODEL = {os.getenv('DETECTIVE_MODEL')}\")\nprint(f\"✅ JUDGE_MODEL = {os.getenv('JUDGE_MODEL')}\")\n# NOW import your modules - AFTER environment is loaded\nimport sys\nimport argparse\nsys.path.insert(0, str(Path(__file__).parent))",
+        "detail": "run_audit",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "test_basic_functionality",
+        "description": "test_basic_functionality",
+        "peekOfCode": "def main():\n    \"\"\"Test basic repo tools without LLM.\"\"\"\n    # Setup audit context with cleanup handlers\n    setup_audit_context()\n    print(\"🔍 Testing Basic Repo Tools\")\n    print(\"=\" * 40)\n    try:\n        # Test with requests repository\n        repo_url = \"https://github.com/psf/requests.git\"\n        print(f\"📁 Cloning: {repo_url}\")",
+        "detail": "test_basic_functionality",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "test_complete_graph",
+        "description": "test_complete_graph",
+        "peekOfCode": "def main():\n    \"\"\"Test the complete auditor graph with requests repository.\"\"\"\n    # Setup audit context with cleanup handlers\n    setup_audit_context()\n    # Test with requests repository directly in code\n    test_state: AgentState = {\n        \"repo_url\": \"https://github.com/psf/requests.git\",\n        \"pdf_path\": \"reports/interim_report.md\",\n        \"rubric_dimensions\": [],  # Will be populated by initialize_state\n        \"evidences\": {},",
+        "detail": "test_complete_graph",
+        "documentation": {}
+    },
+    {
+        "label": "graph",
+        "kind": 5,
+        "importPath": "test_graph",
+        "description": "test_graph",
+        "peekOfCode": "graph = build_graph()\ninput_state = {\n    \"repo_url\": \"https://github.com/langchain-ai/langgraph\",\n    \"pdf_path\": \"reports/interim_report.pdf\",\n    \"evidences\": {},\n    \"opinions\": []\n}\nresult = graph.invoke(input_state)\nprint(\"\\n=== FINAL STATE ===\\n\")\nprint(result)",
+        "detail": "test_graph",
+        "documentation": {}
+    },
+    {
+        "label": "input_state",
+        "kind": 5,
+        "importPath": "test_graph",
+        "description": "test_graph",
+        "peekOfCode": "input_state = {\n    \"repo_url\": \"https://github.com/langchain-ai/langgraph\",\n    \"pdf_path\": \"reports/interim_report.pdf\",\n    \"evidences\": {},\n    \"opinions\": []\n}\nresult = graph.invoke(input_state)\nprint(\"\\n=== FINAL STATE ===\\n\")\nprint(result)\nprint(\"\\n=== EVIDENCE KEYS ===\\n\")",
+        "detail": "test_graph",
+        "documentation": {}
+    },
+    {
+        "label": "result",
+        "kind": 5,
+        "importPath": "test_graph",
+        "description": "test_graph",
+        "peekOfCode": "result = graph.invoke(input_state)\nprint(\"\\n=== FINAL STATE ===\\n\")\nprint(result)\nprint(\"\\n=== EVIDENCE KEYS ===\\n\")\nprint(result[\"evidences\"].keys())\nprint(\"\\n=== FULL EVIDENCE STRUCTURE ===\\n\")\nfor key, value in result[\"evidences\"].items():\n    print(f\"\\n{key}:\")\n    for ev in value:\n        print(ev)",
+        "detail": "test_graph",
+        "documentation": {}
+    }
+]

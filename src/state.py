@@ -1,7 +1,7 @@
 # src/state.py
 
 import operator
-from typing import Annotated, Dict, List, Literal, Optional
+from typing import Annotated, Dict, List, Literal, Optional, Any
 from pydantic import BaseModel, Field
 from typing_extensions import TypedDict
 
@@ -33,7 +33,7 @@ class JudicialOpinion(BaseModel):
 
 class CriterionResult(BaseModel):
     dimension_id: str
-    dimension_name: str
+    name: str
     final_score: int = Field(ge=1, le=5)
     judge_opinions: List[JudicialOpinion]
     dissent_summary: Optional[str] = Field(
@@ -57,6 +57,7 @@ class AuditReport(BaseModel):
 class AgentState(TypedDict):
     repo_url: str
     pdf_path: str
+    config: Dict[str, Any]  # For rubric and other configuration
     rubric_dimensions: List[Dict]
     # Use reducers to prevent parallel agents
     # from overwriting data
@@ -66,4 +67,4 @@ class AgentState(TypedDict):
     opinions: Annotated[
         List[JudicialOpinion], operator.add
     ]
-    final_report: AuditReport
+    final_report: Optional[AuditReport]

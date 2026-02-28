@@ -11,7 +11,9 @@ dependencies = [
     "python-dotenv",
     "docling",
     "tree-sitter",
-    "tree-sitter-python"
+    "tree-sitter-python",
+    "docling-core>=2.66.0",
+    "langchain-ollama>=1.0.1",
 ]
 
 [build-system]

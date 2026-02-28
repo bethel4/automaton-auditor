@@ -1,215 +1,287 @@
 # src/nodes/judges.py
 
 import json
-import os
-from typing import Dict, List
-from src.state import JudicialOpinion, AgentState, Evidence
-from src.llm import get_llm
-
-# Load rubric for judicial logic
-with open('rubric.json', 'r') as f:
-    rubric = json.load(f)
+from typing import Dict, List, Any
+from src.state import AgentState, JudicialOpinion, Evidence
+from src.llm_router import get_llm_for_task, get_fallback_llm, mock_judicial_opinion, DEBUG_MODE
 
 # Persona-specific system prompts
-PROSECUTOR_PROMPT = """You are the PROSECUTOR in this Digital Courtroom. Your core philosophy: "Trust No One. Assume Vibe Coding."
+PROSECUTOR_PROMPT = """You are the PROSECUTOR in this Digital Courtroom. 
+Your core philosophy: "Trust No One. Assume Vibe Coding."
 
-Your mission: Scrutinize the evidence for gaps, security flaws, and laziness. Be harsh but fair.
+Your mission: Scrutinize the evidence for gaps, security flaws, and laziness. 
+Be harsh but factual. Look for what's MISSING.
 
-Scoring guidelines:
-- Look for bypassed structure and missing requirements
-- Flag security vulnerabilities immediately
-- If evidence shows linear pipeline instead of parallel execution, score 1
-- If judges return freeform text instead of Pydantic models, charge "Hallucination Liability"
-- Provide specific missing elements that justify low scores
+Scoring guidelines (1-5):
+1 - Complete failure, missing core requirements
+2 - Significant gaps, multiple missing elements
+3 - Adequate but with notable issues
+4 - Good implementation with minor issues
+5 - Excellent, no issues found
 
-You MUST return a JudicialOpinion with:
+You MUST base your score on the EVIDENCE provided, not assumptions.
+Cite specific evidence in your argument.
+
+Return a JudicialOpinion with:
 - score (1-5): Be critical, high standards
 - argument: Specific technical criticisms with evidence citations
-- cited_evidence: Reference specific evidence items that support your criticism
+- cited_evidence: List of evidence goals you're referencing
+"""
 
-Be adversarial but professional. The truth depends on your scrutiny."""
+DEFENSE_PROMPT = """You are the DEFENSE ATTORNEY in this Digital Courtroom. 
+Your core philosophy: "Reward Effort and Intent. Look for the 'Spirit of the Law'."
 
-DEFENSE_PROMPT = """You are the DEFENSE ATTORNEY in this Digital Courtroom. Your core philosophy: "Reward Effort and Intent. Look for the 'Spirit of the Law'."
+Your mission: Highlight creative workarounds, deep thought, and effort, 
+even if implementation is imperfect.
 
-Your mission: Highlight creative workarounds, deep thought, and effort, even if implementation is imperfect.
+Scoring guidelines (1-5):
+1 - No effort shown, completely missing
+2 - Attempted but fundamentally broken
+3 - Good effort with working core concepts
+4 - Solid implementation with creative solutions
+5 - Exceptional work exceeding requirements
 
-Scoring guidelines:
-- Look for engineering process and iteration in git history
-- Reward sophisticated logic even if syntax is imperfect
-- If architecture is buggy but shows deep understanding, argue for higher scores
-- Consider the "struggle and iteration" story told by commits
-- Focus on intent and architectural vision
+You MUST base your score on the EVIDENCE provided, not assumptions.
+Cite specific evidence in your argument.
 
-You MUST return a JudicialOpinion with:
+Return a JudicialOpinion with:
 - score (1-5): Be generous but realistic
 - argument: Highlight strengths and creative solutions
-- cited_evidence: Reference evidence that shows effort and intent
+- cited_evidence: List of evidence goals you're referencing
+"""
 
-Be optimistic but grounded. Good engineering deserves recognition."""
-
-TECH_LEAD_PROMPT = """You are the TECH LEAD in this Digital Courtroom. Your core philosophy: "Does it actually work? Is it maintainable?"
+TECH_LEAD_PROMPT = """You are the TECH LEAD in this Digital Courtroom. 
+Your core philosophy: "Does it actually work? Is it maintainable?"
 
 Your mission: Evaluate architectural soundness, code cleanliness, and practical viability.
 
-Scoring guidelines:
-- Focus on actual artifacts and implementation quality
-- Check if reducers (operator.add, operator.ior) are properly used
-- Evaluate if tool calls are isolated and safe
-- Assess modularity and maintainability
-- You are the tie-breaker between Prosecutor and Defense
+Scoring guidelines (1-5):
+1 - Unusable, fundamentally broken
+2 - Works but has major architectural issues
+3 - Functional with some technical debt
+4 - Solid architecture, production-ready
+5 - Exemplary design, best practices followed
 
-You MUST return a JudicialOpinion with:
+You MUST base your score on the EVIDENCE provided, not assumptions.
+Cite specific evidence in your argument.
+
+Return a JudicialOpinion with:
 - score (1-5): Be pragmatic and realistic
 - argument: Technical assessment with specific code analysis
-- cited_evidence: Reference concrete technical evidence
+- cited_evidence: List of evidence goals you're referencing
+"""
 
-Be practical and technical. Production quality is your standard."""
 
-def prosecutor(state: AgentState) -> Dict:
-    """Prosecutor judge node - adversarial analysis."""
-    llm = get_llm()
+def create_judge_node(judge_type: str):
+    """
+    Factory function to create judge nodes with proper persona
     
-    # Get relevant evidence for github_repo dimensions
-    repo_evidences = []
-    for evidence_list in state["evidences"].values():
-        repo_evidences.extend(evidence_list)
+    Args:
+        judge_type: "Prosecutor", "Defense", or "TechLead"
+    """
     
-    # Filter for relevant dimensions
-    relevant_dimensions = [dim for dim in rubric['dimensions'] 
-                          if dim['target_artifact'] == 'github_repo']
-    
-    opinions = []
-    
-    for dimension in relevant_dimensions:
-        # Create evidence context
-        evidence_text = "\n".join([
-            f"- {ev.goal}: {ev.rationale} (confidence: {ev.confidence})"
-            for ev in repo_evidences if ev.goal == dimension['name']
-        ])
+    def judge_node(state: AgentState) -> Dict[str, Any]:
+        """Judge node that evaluates evidence through persona lens"""
         
-        prompt = f"""Evaluate this repository for the criterion: {dimension['name']}
-
-Evidence:
-{evidence_text}
-
-Success Pattern: {dimension['success_pattern']}
-Failure Pattern: {dimension['failure_pattern']}
-
-{PROSECUTOR_PROMPT}"""
+        # Select prompt based on judge type
+        if judge_type == "Prosecutor":
+            system_prompt = PROSECUTOR_PROMPT
+        elif judge_type == "Defense":
+            system_prompt = DEFENSE_PROMPT
+        else:  # TechLead
+            system_prompt = TECH_LEAD_PROMPT
         
-        try:
-            structured_llm = llm.with_structured_output(JudicialOpinion)
-            opinion = structured_llm.invoke(prompt)
-            opinions.append(opinion)
-        except Exception as e:
-            # Fallback opinion
-            opinion = JudicialOpinion(
-                judge="Prosecutor",
-                criterion_id=dimension['id'],
-                score=2,
-                argument=f"Prosecutor analysis failed: {str(e)}",
-                cited_evidence=[]
-            )
-            opinions.append(opinion)
-    
-    return {"opinions": opinions}
-
-def defense(state: AgentState) -> Dict:
-    """Defense judge node - optimistic analysis."""
-    llm = get_llm()
-    
-    # Get relevant evidence
-    repo_evidences = []
-    pdf_evidences = []
-    for key, evidence_list in state["evidences"].items():
-        if "repo" in key:
-            repo_evidences.extend(evidence_list)
-        elif "pdf" in key:
-            pdf_evidences.extend(evidence_list)
-    
-    all_evidences = repo_evidences + pdf_evidences
-    
-    relevant_dimensions = rubric['dimensions']
-    opinions = []
-    
-    for dimension in relevant_dimensions:
-        # Create evidence context
-        evidence_text = "\n".join([
-            f"- {ev.goal}: {ev.rationale} (confidence: {ev.confidence})"
-            for ev in all_evidences if ev.goal == dimension['name']
-        ])
+        # Get rubric from config
+        rubric_loader = state["config"]["rubric"]
         
-        prompt = f"""Evaluate this work for the criterion: {dimension['name']}
-
-Evidence:
-{evidence_text}
-
-Success Pattern: {dimension['success_pattern']}
-Failure Pattern: {dimension['failure_pattern']}
-
-{DEFENSE_PROMPT}"""
+        # Format all criteria for judges
+        criteria_text = rubric_loader.format_criteria_for_judges()
         
-        try:
-            structured_llm = llm.with_structured_output(JudicialOpinion)
-            opinion = structured_llm.invoke(prompt)
-            opinions.append(opinion)
-        except Exception as e:
-            # Fallback opinion
-            opinion = JudicialOpinion(
-                judge="Defense",
-                criterion_id=dimension['id'],
-                score=3,
-                argument=f"Defense analysis failed: {str(e)}",
-                cited_evidence=[]
-            )
-            opinions.append(opinion)
-    
-    return {"opinions": opinions}
-
-def tech_lead(state: AgentState) -> Dict:
-    """Tech Lead judge node - pragmatic analysis."""
-    llm = get_llm()
-    
-    # Get relevant evidence
-    repo_evidences = []
-    for evidence_list in state["evidences"].values():
-        repo_evidences.extend(evidence_list)
-    
-    relevant_dimensions = [dim for dim in rubric['dimensions'] 
-                          if dim['target_artifact'] == 'github_repo']
-    
-    opinions = []
-    
-    for dimension in relevant_dimensions:
-        # Create evidence context
-        evidence_text = "\n".join([
-            f"- {ev.goal}: {ev.rationale} (confidence: {ev.confidence})"
-            for ev in repo_evidences if ev.goal == dimension['name']
-        ])
+        # Get all evidence
+        all_evidence = []
+        evidence_by_goal = {}
         
-        prompt = f"""Evaluate this repository for the criterion: {dimension['name']}
-
-Evidence:
-{evidence_text}
-
-Success Pattern: {dimension['success_pattern']}
-Failure Pattern: {dimension['failure_pattern']}
-
-{TECH_LEAD_PROMPT}"""
+        for detective_name, evidence_list in state.get("evidences", {}).items():
+            for evidence in evidence_list:
+                all_evidence.append(evidence)
+                if evidence.goal not in evidence_by_goal:
+                    evidence_by_goal[evidence.goal] = []
+                evidence_by_goal[evidence.goal].append(evidence)
         
-        try:
-            structured_llm = llm.with_structured_output(JudicialOpinion)
-            opinion = structured_llm.invoke(prompt)
-            opinions.append(opinion)
-        except Exception as e:
-            # Fallback opinion
-            opinion = JudicialOpinion(
-                judge="TechLead",
-                criterion_id=dimension['id'],
-                score=3,
-                argument=f"Tech Lead analysis failed: {str(e)}",
-                cited_evidence=[]
-            )
-            opinions.append(opinion)
+        # Format evidence for prompt
+        evidence_text = ""
+        for goal, ev_list in evidence_by_goal.items():
+            evidence_text += f"\n### {goal}\n"
+            for ev in ev_list:
+                evidence_text += f"- Found: {ev.found}\n"
+                evidence_text += f"  Rationale: {ev.rationale}\n"
+                evidence_text += f"  Confidence: {ev.confidence}\n"
+                evidence_text += f"  Type: {ev.goal}\n"
+                if ev.content and isinstance(ev.content, dict) and "analysis" in ev.content:
+                    evidence_text += f"  Details: {json.dumps(ev.content.get('analysis', {}), indent=2)[:200]}\n"
+        
+        opinions = []
+        
+        # Process each criterion from rubric
+        for dimension in rubric_loader.rubric.get("dimensions", []):
+            criterion_id = dimension.get("id", "")
+            
+            # Skip if no evidence for this criterion
+            relevant_evidence = []
+            for ev in all_evidence:
+                if dimension.get("name", "").lower() in ev.goal.lower() or criterion_id.lower() in ev.goal.lower():
+                    relevant_evidence.append(ev)
+            
+            # Use mock in debug mode
+            if DEBUG_MODE:
+                mock = mock_judicial_opinion(criterion_id, judge_type)
+                if mock:
+                    opinions.append(mock)
+                    continue
+            
+            # Prepare prompt for this criterion
+            prompt = f"""{system_prompt}
+
+CRITERION: {dimension.get('name', 'Unknown')} (ID: {criterion_id})
+Target Artifact: {dimension.get('target_artifact', 'Unknown')}
+
+SUCCESS PATTERN:
+{dimension.get('success_pattern', 'No pattern specified')}
+
+FAILURE PATTERN:
+{dimension.get('failure_pattern', 'No pattern specified')}
+
+EVIDENCE FOR THIS CRITERION:
+{format_evidence_for_prompt(relevant_evidence)}
+
+ALL AVAILABLE EVIDENCE (for context):
+{evidence_text[:2000]}  # Truncated for token limits
+
+Based STRICTLY on the evidence above, evaluate this criterion as {judge_type}.
+
+Return a JSON object with:
+{{
+    "judge": "{judge_type}",
+    "criterion_id": "{criterion_id}",
+    "score": <integer 1-5>,
+    "argument": <string explaining your reasoning, citing specific evidence>,
+    "cited_evidence": <list of evidence goals you referenced>
+}}
+"""
+            
+            try:
+                # Get LLM for judge tasks
+                llm = get_llm_for_task("judge")
+                
+                # Invoke with JSON format
+                response = llm.invoke(prompt)
+                
+                # Parse response
+                if hasattr(response, 'content'):
+                    response_text = response.content
+                else:
+                    response_text = str(response)
+                
+                # Check for empty response
+                if not response_text or response_text.strip() == "":
+                    print(f"⚠️ LLM returned empty response for {criterion_id}")
+                    # Use fallback opinion
+                    opinions.append(JudicialOpinion(
+                        judge=judge_type,
+                        criterion_id=criterion_id,
+                        score=3,
+                        argument=f"LLM returned empty response for {criterion_id}",
+                        cited_evidence=[]
+                    ))
+                    continue
+                
+                # Try to parse JSON
+                try:
+                    # Handle markdown code blocks
+                    if response_text.strip().startswith('```json'):
+                        # Extract JSON from markdown code block
+                        start = response_text.find('{')
+                        end = response_text.rfind('}')
+                        if start != -1 and end != -1 and end > start:
+                            json_str = response_text[start:end+1]
+                            result = json.loads(json_str)
+                        else:
+                            raise json.JSONDecodeError("No valid JSON found in code block")
+                    else:
+                        result = json.loads(response_text)
+                except json.JSONDecodeError as e:
+                    print(f"⚠️ JSON parsing failed for {criterion_id}: {e}")
+                    print(f"Response was: {response_text[:300]}...")
+                    # Use fallback opinion
+                    opinions.append(JudicialOpinion(
+                        judge=judge_type,
+                        criterion_id=criterion_id,
+                        score=3,
+                        argument=f"JSON parsing failed: {str(e)}",
+                        cited_evidence=[]
+                    ))
+                    continue
+                
+                # Create JudicialOpinion
+                opinion = JudicialOpinion(
+                    judge=judge_type,
+                    criterion_id=criterion_id,
+                    score=result.get("score", 3),
+                    argument=result.get("argument", "No argument provided"),
+                    cited_evidence=result.get("cited_evidence", [])
+                )
+                opinions.append(opinion)
+                
+            except Exception as e:
+                print(f"⚠️ {judge_type} failed for {criterion_id}: {e}")
+                # Fallback opinion
+                opinions.append(JudicialOpinion(
+                    judge=judge_type,
+                    criterion_id=criterion_id,
+                    score=3,
+                    argument=f"Evaluation failed: {str(e)}",
+                    cited_evidence=[]
+                ))
+        
+        return {"opinions": opinions}
     
-    return {"opinions": opinions}
+    return judge_node
+
+
+def format_evidence_for_prompt(evidence_list: List[Evidence]) -> str:
+    """Format evidence list for inclusion in prompts"""
+    if not evidence_list:
+        return "No direct evidence found for this criterion."
+    
+    text = ""
+    for ev in evidence_list:
+        text += f"\n- Goal: {ev.goal}\n"
+        text += f"  Found: {ev.found}\n"
+        text += f"  Location: {ev.location}\n"
+        text += f"  Rationale: {ev.rationale}\n"
+        text += f"  Confidence: {ev.confidence}\n"
+        
+        # Add content summary if present
+        if ev.content:
+            if isinstance(ev.content, dict):
+                # Truncate dict content
+                content_str = json.dumps(ev.content, indent=2)[:300]
+                text += f"  Content: {content_str}...\n"
+            else:
+                content_str = str(ev.content)[:300]
+                text += f"  Content: {content_str}...\n"
+    
+    return text
+
+
+# Convenience functions for graph construction
+def prosecutor(state: AgentState) -> Dict[str, Any]:
+    return create_judge_node("Prosecutor")(state)
+
+
+def defense(state: AgentState) -> Dict[str, Any]:
+    return create_judge_node("Defense")(state)
+
+
+def tech_lead(state: AgentState) -> Dict[str, Any]:
+    return create_judge_node("TechLead")(state)

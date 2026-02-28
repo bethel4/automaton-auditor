@@ -1,128 +1,74 @@
+# src/graph.py
+
 from langgraph.graph import StateGraph, END
 from src.state import AgentState
-from src.nodes.detectives import repo_investigator, doc_analyst, vision_inspector
+from src.nodes.detectives import (
+    repo_investigator, 
+    doc_analyst, 
+    vision_inspector
+)
+from src.nodes.aggregator import evidence_aggregator
 from src.nodes.judges import prosecutor, defense, tech_lead
 from src.nodes.justice import chief_justice
-import json
+from src.utils.rubric_loader import ContextBuilder, load_rubric
 
-# Load rubric for graph initialization
-with open('rubric.json', 'r') as f:
-    rubric = json.load(f)
-
-def initialize_state(state: AgentState) -> AgentState:
-    """Initialize state with rubric dimensions."""
-    if "rubric_dimensions" not in state or not state["rubric_dimensions"]:
-        state["rubric_dimensions"] = rubric["dimensions"]
-    return state
-
-def evidence_aggregator(state: AgentState) -> AgentState:
-    """Aggregate evidence from all detectives."""
-    # Evidence is already aggregated by state reducers
-    return state
-
-def opinion_aggregator(state: AgentState) -> AgentState:
-    """Aggregate opinions from all judges."""
-    # Opinions are already aggregated by state reducers
-    return state
-
-def should_continue_to_judges(state: AgentState) -> str:
-    """Check if we have enough evidence to proceed to judges."""
-    total_evidences = sum(len(evidence_list) for evidence_list in state["evidences"].values())
+def create_graph():
+    # Load rubric once
+    rubric = load_rubric("rubric.json")
+    context_builder = ContextBuilder(rubric)
     
-    if total_evidences == 0:
-        return "evidence_missing"
+    # Initialize graph
+    workflow = StateGraph(AgentState)
     
-    # Check if we have evidence from at least 2 detectives
-    detective_count = len([key for key in state["evidences"].keys() if "analysis" in key])
-    if detective_count < 2:
-        return "evidence_missing"
+    # Add ALL nodes
+    workflow.add_node("repo_investigator", repo_investigator)
+    workflow.add_node("doc_analyst", doc_analyst)
+    workflow.add_node("vision_inspector", vision_inspector)
+    workflow.add_node("aggregator", evidence_aggregator)
+    workflow.add_node("prosecutor", prosecutor)
+    workflow.add_node("defense", defense)
+    workflow.add_node("tech_lead", tech_lead)
+    workflow.add_node("chief_justice", chief_justice)
     
-    return "proceed_to_judges"
-
-def should_continue_to_justice(state: AgentState) -> str:
-    """Check if we have opinions from all judges."""
-    total_opinions = len(state["opinions"])
+    # IMPORTANT: Set entry point to route to ALL detectives in parallel
+    # Method 1: Using a router node (recommended)
+    def route_to_detectives(state):
+        """Route to all detectives in parallel"""
+        # This function just returns the list of nodes to run in parallel
+        return ["repo_investigator", "doc_analyst", "vision_inspector"]
     
-    # We expect opinions from 3 judges for multiple criteria
-    expected_opinions = len(rubric["dimensions"]) * 3  # 3 judges per dimension
-    
-    if total_opinions < expected_opinions * 0.5:  # At least 50% of expected opinions
-        return "opinions_missing"
-    
-    return "proceed_to_justice"
-
-def build_graph():
-    """Build the complete Digital Courtroom StateGraph."""
-    builder = StateGraph(AgentState)
-    
-    # Add nodes
-    builder.add_node("InitializeState", initialize_state)
-    
-    # Detective Layer (Parallel Fan-Out)
-    builder.add_node("RepoInvestigator", repo_investigator)
-    builder.add_node("DocAnalyst", doc_analyst)
-    builder.add_node("VisionInspector", vision_inspector)
-    
-    # Evidence Aggregation (Fan-In)
-    builder.add_node("EvidenceAggregator", evidence_aggregator)
-    
-    # Judicial Layer (Parallel Fan-Out)
-    builder.add_node("Prosecutor", prosecutor)
-    builder.add_node("Defense", defense)
-    builder.add_node("TechLead", tech_lead)
-    
-    # Opinion Aggregation (Fan-In)
-    builder.add_node("OpinionAggregator", opinion_aggregator)
-    
-    # Chief Justice (Final Synthesis)
-    builder.add_node("ChiefJustice", chief_justice)
-    
-    # Define edges
-    
-    # Start -> Initialize
-    builder.add_edge("__start__", "InitializeState")
-    
-    # Initialize -> Detectives (Parallel Fan-Out)
-    builder.add_edge("InitializeState", "RepoInvestigator")
-    builder.add_edge("InitializeState", "DocAnalyst")
-    builder.add_edge("InitializeState", "VisionInspector")
-    
-    # Detectives -> Evidence Aggregator (Fan-In)
-    builder.add_edge("RepoInvestigator", "EvidenceAggregator")
-    builder.add_edge("DocAnalyst", "EvidenceAggregator")
-    builder.add_edge("VisionInspector", "EvidenceAggregator")
-    
-    # Evidence Aggregator -> Conditional Check
-    builder.add_conditional_edges(
-        "EvidenceAggregator",
-        should_continue_to_judges,
+    workflow.add_conditional_edges(
+        "__start__",  # Special node that represents graph start
+        route_to_detectives,
         {
-            "proceed_to_judges": "Prosecutor",
-            "evidence_missing": "ChiefJustice"  # Skip to final report if evidence missing
+            "repo_investigator": "repo_investigator",
+            "doc_analyst": "doc_analyst", 
+            "vision_inspector": "vision_inspector"
         }
     )
     
-    # Evidence -> Judges (Parallel Fan-Out)
-    builder.add_edge("EvidenceAggregator", "Prosecutor")
-    builder.add_edge("EvidenceAggregator", "Defense")
-    builder.add_edge("EvidenceAggregator", "TechLead")
+    # Alternative Method 2: If your LangGraph version supports it
+    # workflow.add_edge("__start__", "repo_investigator")
+    # workflow.add_edge("__start__", "doc_analyst")
+    # workflow.add_edge("__start__", "vision_inspector")
     
-    # Judges -> Opinion Aggregator (Fan-In)
-    builder.add_edge("Prosecutor", "OpinionAggregator")
-    builder.add_edge("Defense", "OpinionAggregator")
-    builder.add_edge("TechLead", "OpinionAggregator")
+    # All detectives fan-in to aggregator
+    workflow.add_edge("repo_investigator", "aggregator")
+    workflow.add_edge("doc_analyst", "aggregator")
+    workflow.add_edge("vision_inspector", "aggregator")
     
-    # Opinion Aggregator -> Conditional Check
-    builder.add_conditional_edges(
-        "OpinionAggregator",
-        should_continue_to_justice,
-        {
-            "proceed_to_justice": "ChiefJustice",
-            "opinions_missing": "ChiefJustice"  # Proceed anyway with what we have
-        }
-    )
+    # Aggregator fans-out to judges
+    workflow.add_edge("aggregator", "prosecutor")
+    workflow.add_edge("aggregator", "defense")
+    workflow.add_edge("aggregator", "tech_lead")
     
-    # Chief Justice -> END
-    builder.add_edge("ChiefJustice", END)
+    # Judges fan-in to chief justice
+    workflow.add_edge("prosecutor", "chief_justice")
+    workflow.add_edge("defense", "chief_justice")
+    workflow.add_edge("tech_lead", "chief_justice")
     
-    return builder.compile()
+    # Chief justice ends the graph
+    workflow.add_edge("chief_justice", END)
+    
+    # Compile with config
+    return workflow.compile()

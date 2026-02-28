@@ -56,7 +56,7 @@ def chief_justice(state: AgentState) -> Dict:
         
         result = CriterionResult(
             dimension_id=criterion_id,
-            dimension_name=criterion_name,
+            name=criterion_name,
             final_score=final_score,
             judge_opinions=criterion_opinions,
             dissent_summary=dissent_summary,
@@ -68,6 +68,21 @@ def chief_justice(state: AgentState) -> Dict:
     
     # Calculate overall score
     overall_score = total_score / len(rubric['dimensions']) if rubric['dimensions'] else 0
+    
+    # Ensure we have some results even if judges failed
+    if not criteria_results:
+        print("⚠️ No criteria results, creating minimal report")
+        criteria_results = [
+            CriterionResult(
+                dimension_id="system_error",
+                name="System Error", 
+                final_score=1,
+                judge_opinions=[],
+                dissent_summary="No judge opinions available",
+                remediation="System encountered errors during evaluation"
+            )
+        ]
+        overall_score = 1.0
     
     # Generate executive summary
     executive_summary = generate_executive_summary(criteria_results, overall_score)
@@ -230,11 +245,11 @@ def generate_executive_summary(criteria_results: List[CriterionResult], overall_
     
     if high_scoring:
         summary += f"**Strengths ({len(high_scoring)} areas):** "
-        summary += ", ".join([cr.dimension_name for cr in high_scoring]) + "\n\n"
+        summary += ", ".join([cr.name for cr in high_scoring]) + "\n\n"
     
     if low_scoring:
         summary += f"**Critical Issues ({len(low_scoring)} areas):** "
-        summary += ", ".join([cr.dimension_name for cr in low_scoring]) + "\n\n"
+        summary += ", ".join([cr.name for cr in low_scoring]) + "\n\n"
     
     return summary
 
@@ -252,7 +267,7 @@ def generate_overall_remediation(criteria_results: List[CriterionResult]) -> str
     priority_issues.sort(key=lambda x: x.final_score)
     
     for i, issue in enumerate(priority_issues, 1):
-        remediation += f"### {i}. {issue.dimension_name}\n\n"
+        remediation += f"### {i}. {issue.name}\n\n"
         remediation += f"**Current Score: {issue.final_score}/5**\n\n"
         remediation += f"{issue.remediation}\n\n"
     
@@ -266,7 +281,7 @@ def generate_markdown_report(audit_report: AuditReport) -> str:
     report += "## Detailed Criterion Breakdown\n\n"
     
     for criterion in audit_report.criteria:
-        report += f"### {criterion.dimension_name}\n\n"
+        report += f"### {criterion.name}\n\n"
         report += f"**Final Score: {criterion.final_score}/5**\n\n"
         
         # Judge opinions
