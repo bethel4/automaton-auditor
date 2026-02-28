@@ -41,7 +41,9 @@ def create_graph():
     
     def start_all_detectives(state):
         """Kick off all detectives simultaneously"""
-        # This function just passes through state
+        print(f"\n{'='*60}")
+        print("🔍 Detectives collecting evidence (showing structured Evidence output)")
+        print(f"{'='*60}\n")
         return state
     
     workflow.add_node("start_all_detectives", start_all_detectives)

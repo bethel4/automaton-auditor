@@ -22,7 +22,15 @@ from src.tools.repo_tools import (
     check_structured_output,
     get_repo_files
 )
-from src.tools.doc_tools import extract_text_from_pdf, extract_images_from_pdf
+from src.tools.doc_tools import (
+    extract_text_from_pdf,
+    extract_images_from_pdf,
+    extract_file_paths_from_text,
+    extract_concepts,
+    extract_metadata,
+    chunk_text,
+    cross_reference_paths,
+)
 from src.llm_router import get_llm_for_task, get_fallback_llm, DEBUG_MODE
 
 
@@ -148,6 +156,16 @@ def repo_investigator(state: AgentState) -> Dict[str, Any]:
             content=structured_analysis,
             location="src/nodes/judges.py",
             rationale=f"Structured output: {structured_analysis.get('has_structured_output', False)}",
+            confidence=0.95
+        ))
+
+        # Repository file list for doc_analyst cross-reference
+        evidences.append(Evidence(
+            goal="Repository Files",
+            found=len(repo_files) > 0,
+            content=repo_files,
+            location=str(repo_path),
+            rationale=f"Found {len(repo_files)} Python files in repo",
             confidence=0.95
         ))
         
@@ -290,32 +308,30 @@ def doc_analyst(state: AgentState) -> Dict[str, Any]:
         ))
         return {"evidences": {"doc_analyst": evidences}, "errors": errors}
     
-    print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] DOC ANALYST FINISHED (took {time.time()-start:.1f}s)")
-    
     try:
         print(f"🔄 Step 1: Extracting text from PDF...")
         # --- STEP 1: DETERMINISTIC EXTRACTION ---
         
         # Extract text from PDF
         print(f"🔄 Step 2: Extracting text from PDF...")
-        pdf_text = doc_tools.extract_text_from_pdf(pdf_path)
+        pdf_text = extract_text_from_pdf(pdf_path)
         print(f"✅ PDF text extracted: {len(pdf_text)} characters")
         
         # Extract file paths mentioned
         print(f"🔄 Step 3: Extracting file paths from text...")
-        claimed_paths = doc_tools.extract_file_paths_from_text(pdf_text)
+        claimed_paths = extract_file_paths_from_text(pdf_text)
         print(f"✅ File paths extracted: {len(claimed_paths)} paths")
         
         # Check for key concepts
         print(f"🔄 Step 4: Extracting concepts from text...")
-        concepts = doc_tools.extract_concepts(pdf_text)
+        concepts = extract_concepts(pdf_text)
         print(f"✅ Concepts extracted: {len(concepts)} concepts")
         
         # Get metadata
-        metadata = doc_tools.extract_metadata(pdf_text)
+        metadata = extract_metadata(pdf_text)
         
         # Chunk text for LLM
-        chunks = doc_tools.chunk_text(pdf_text, chunk_size=3000)
+        chunks = chunk_text(pdf_text, chunk_size=3000)
         
         # --- STEP 2: CROSS-REFERENCE WITH REPO (if available) ---
         cross_reference = {"verified": [], "hallucinated": []}
@@ -324,9 +340,10 @@ def doc_analyst(state: AgentState) -> Dict[str, Any]:
         if "repo_investigator" in state.get("evidences", {}):
             repo_evidence = state["evidences"]["repo_investigator"]
             for ev in repo_evidence:
-                if ev.goal == "Repository Files":
-                    repo_files = ev.content
-                    cross_reference = doc_tools.cross_reference_paths(claimed_paths, repo_files)
+                if ev.goal == "Repository Files" and ev.content is not None:
+                    repo_files = ev.content if isinstance(ev.content, list) else []
+                    cross_reference = cross_reference_paths(claimed_paths, repo_files)
+                    break
         
         # --- STEP 3: STORE DETERMINISTIC EVIDENCE ---
         
@@ -438,11 +455,17 @@ def vision_inspector(state: AgentState) -> Dict[str, Any]:
         return {"evidences": {"vision_inspector": []}, "errors": errors}
     
     try:
-        # Extract images from PDF
-        images = doc_tools.extract_images_from_pdf(pdf_path)
-        
+        images = extract_images_from_pdf(pdf_path)
         if not images:
-            return {"evidences": {"vision_inspector": []}, "errors": errors}
+            evidences.append(Evidence(
+                goal="Swarm Visual",
+                found=False,
+                content=None,
+                location=pdf_path,
+                rationale="No images extracted from PDF",
+                confidence=0.5
+            ))
+            return {"evidences": {"vision_inspector": evidences}, "errors": errors}
         
         # Use vision LLM for analysis
         try:

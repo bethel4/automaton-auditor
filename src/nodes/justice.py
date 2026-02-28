@@ -13,24 +13,27 @@ from src.state import AgentState, JudicialOpinion, CriterionResult, AuditReport,
 @traceable(name="chief_justice", run_type="chain")
 def chief_justice(state: AgentState) -> Dict[str, Any]:
     """
-    Chief Justice synthesizes judge opinions with deterministic rules
-    
-    Synthesis Rules (from rubric):
-    1. Security Override: Security flaws cap score at 3
-    2. Fact Supremacy: Forensic evidence overrules judicial opinion
-    3. Functionality Weight: Tech Lead carries highest weight for architecture
-    4. Dissent Requirement: Summarize disagreements when variance > 2
-    5. Variance Re-evaluation: Trigger re-evaluation if variance > 2
+    Chief Justice synthesizes judge opinions with deterministic rules.
+    Only produces the report when ALL three judges have submitted (runs once per judge
+    due to fan-in; we skip synthesis until we have full opinions).
     """
-    
-    # Get rubric from config
     rubric_loader = state["config"]["rubric"]
-    
+    dimensions = rubric_loader.rubric.get("dimensions", [])
+    num_criteria = len(dimensions)
+    expected_opinions = num_criteria * 3  # Prosecutor, Defense, TechLead per criterion
+    opinions = state.get("opinions", [])
+
+    # Only skip synthesis if we have too few opinions.
+    # Require at least 2 judges' worth (24 opinions) so report isn't one-sided.
+    min_opinions = num_criteria * 2
+    if len(opinions) < min_opinions:
+        return {}
+
     # Group opinions by criterion
     opinions_by_criterion = defaultdict(list)
-    for opinion in state.get("opinions", []):
+    for opinion in opinions:
         opinions_by_criterion[opinion.criterion_id].append(opinion)
-    
+
     # Get all evidence for fact checking
     all_evidence = []
     for evidence_list in state.get("evidences", {}).values():
@@ -43,9 +46,9 @@ def chief_justice(state: AgentState) -> Dict[str, Any]:
     for dimension in rubric_loader.rubric.get("dimensions", []):
         criterion_id = dimension.get("id", dimension.get("dimension_id", "unknown"))
         dimension_name = dimension.get("name", "unknown")
-        opinions = opinions_by_criterion.get(criterion_id, [])
+        criterion_opinions = opinions_by_criterion.get(criterion_id, [])
         
-        if not opinions:
+        if not criterion_opinions:
             # No opinions for this criterion
             result = CriterionResult(
                 dimension_id=criterion_id,
@@ -63,7 +66,7 @@ def chief_justice(state: AgentState) -> Dict[str, Any]:
         final_score, dissent = synthesize_criterion(
             criterion_id=criterion_id,
             dimension=dimension,
-            opinions=opinions,
+            opinions=criterion_opinions,
             evidence=all_evidence,
             rubric_loader=rubric_loader
         )
@@ -74,7 +77,7 @@ def chief_justice(state: AgentState) -> Dict[str, Any]:
             dimension=dimension,
             dimension_name=dimension_name,
             final_score=final_score,
-            opinions=opinions,
+            opinions=criterion_opinions,
             evidence=all_evidence
         )
         
@@ -82,7 +85,7 @@ def chief_justice(state: AgentState) -> Dict[str, Any]:
             dimension_id=criterion_id,
             name=dimension_name,
             final_score=final_score,
-            judge_opinions=opinions,
+            judge_opinions=criterion_opinions,
             dissent_summary=dissent,
             remediation=remediation
         )
