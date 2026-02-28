@@ -89,10 +89,13 @@ def main():
         traceback.print_exc()
         sys.exit(1)
     
-    # Initialize state
+    # Initialize state (resolve pdf_path to absolute so doc_analyst/vision find the file)
+    pdf_path = args.pdf_path
+    if pdf_path and os.path.exists(pdf_path):
+        pdf_path = str(Path(pdf_path).resolve())
     initial_state: AgentState = {
         "repo_url": args.repo_url,
-        "pdf_path": args.pdf_path,
+        "pdf_path": pdf_path,
         "config": {
             "rubric": context_builder
         },
@@ -138,6 +141,16 @@ def main():
                 print(f"⚠️ Issues: {', '.join([c.name for c in low_scores])}")
         else:
             print("❌ No final report generated")
+            # Still write a minimal report so the user has an artifact
+            output_path = Path(args.output)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            evidence_summary = []
+            for det, ev_list in final_state.get("evidences", {}).items():
+                evidence_summary.append(f"## {det}\n{len(ev_list)} evidence item(s)")
+            minimal_md = "# Automaton Auditor – Partial Run\n\nNo full report (chief justice did not receive enough judge opinions).\n\n## Evidence collected\n\n" + "\n\n".join(evidence_summary) + "\n"
+            with open(output_path, "w") as f:
+                f.write(minimal_md)
+            print(f"📄 Minimal report written to: {output_path}")
             
     except Exception as e:
         print(f"❌ Audit failed: {e}")

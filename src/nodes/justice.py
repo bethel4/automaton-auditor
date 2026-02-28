@@ -23,9 +23,10 @@ def chief_justice(state: AgentState) -> Dict[str, Any]:
     expected_opinions = num_criteria * 3  # Prosecutor, Defense, TechLead per criterion
     opinions = state.get("opinions", [])
 
-    # Wait for all three judges: chief_justice is invoked 3 times (once per judge).
-    # Only synthesize when we have all opinions so the report is complete.
-    if len(opinions) < expected_opinions:
+    # Only skip synthesis if we have too few opinions.
+    # Require at least 2 judges' worth (24 opinions) so report isn't one-sided.
+    min_opinions = num_criteria * 2
+    if len(opinions) < min_opinions:
         return {}
 
     # Group opinions by criterion

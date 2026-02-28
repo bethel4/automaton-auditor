@@ -158,6 +158,16 @@ def repo_investigator(state: AgentState) -> Dict[str, Any]:
             rationale=f"Structured output: {structured_analysis.get('has_structured_output', False)}",
             confidence=0.95
         ))
+
+        # Repository file list for doc_analyst cross-reference
+        evidences.append(Evidence(
+            goal="Repository Files",
+            found=len(repo_files) > 0,
+            content=repo_files,
+            location=str(repo_path),
+            rationale=f"Found {len(repo_files)} Python files in repo",
+            confidence=0.95
+        ))
         
         # --- STEP 4: LLM INTERPRETATION (ONLY AFTER FACTS) ---
         
@@ -298,8 +308,6 @@ def doc_analyst(state: AgentState) -> Dict[str, Any]:
         ))
         return {"evidences": {"doc_analyst": evidences}, "errors": errors}
     
-    print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] DOC ANALYST FINISHED (took {time.time()-start:.1f}s)")
-    
     try:
         print(f"🔄 Step 1: Extracting text from PDF...")
         # --- STEP 1: DETERMINISTIC EXTRACTION ---
@@ -332,9 +340,10 @@ def doc_analyst(state: AgentState) -> Dict[str, Any]:
         if "repo_investigator" in state.get("evidences", {}):
             repo_evidence = state["evidences"]["repo_investigator"]
             for ev in repo_evidence:
-                if ev.goal == "Repository Files":
-                    repo_files = ev.content
+                if ev.goal == "Repository Files" and ev.content is not None:
+                    repo_files = ev.content if isinstance(ev.content, list) else []
                     cross_reference = cross_reference_paths(claimed_paths, repo_files)
+                    break
         
         # --- STEP 3: STORE DETERMINISTIC EVIDENCE ---
         
@@ -446,11 +455,17 @@ def vision_inspector(state: AgentState) -> Dict[str, Any]:
         return {"evidences": {"vision_inspector": []}, "errors": errors}
     
     try:
-        # Extract images from PDF
         images = extract_images_from_pdf(pdf_path)
-        
         if not images:
-            return {"evidences": {"vision_inspector": []}, "errors": errors}
+            evidences.append(Evidence(
+                goal="Swarm Visual",
+                found=False,
+                content=None,
+                location=pdf_path,
+                rationale="No images extracted from PDF",
+                confidence=0.5
+            ))
+            return {"evidences": {"vision_inspector": evidences}, "errors": errors}
         
         # Use vision LLM for analysis
         try:
