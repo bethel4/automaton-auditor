@@ -104,22 +104,26 @@ def extract_json_from_response(response_text: str) -> Dict[str, Any]:
         print("⚠️ Empty response from LLM")
         return {"score": 3, "argument": "Empty response from LLM", "cited_evidence": []}
     
-    # Print first 200 chars for debugging
-    print(f"\n📝 Raw response (first 200 chars): {response_text[:200]}")
+    # Print first 500 chars for debugging
+    print(f"\n📝 Raw response (first 500 chars): {response_text[:500]}")
+    print(f"📝 Response length: {len(response_text)} characters")
     
     # Try to find JSON in markdown code blocks
     json_pattern = r'```(?:json)?\s*([\s\S]*?)\s*```'
     matches = re.findall(json_pattern, response_text)
+    print(f"🔍 Found {len(matches)} JSON code blocks")
     
     if matches:
-        for match in matches:
+        for i, match in enumerate(matches):
             try:
                 cleaned = match.strip()
+                print(f"🔍 Attempting to parse code block {i+1}: {cleaned[:200]}...")
                 result = json.loads(cleaned)
-                print(f"✅ Found JSON in code block")
+                print(f"✅ Found JSON in code block {i+1}")
                 return result
             except json.JSONDecodeError as e:
-                print(f"⚠️ Code block contains invalid JSON: {e}")
+                print(f"⚠️ Code block {i+1} contains invalid JSON: {e}")
+                print(f"⚠️ Code block {i+1} content: {cleaned}")
                 continue
     
     # Try to find JSON object directly (between first { and last })

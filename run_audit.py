@@ -8,43 +8,44 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # LOAD ENV ONCE - AT THE VERY TOP
-env_path = Path(__file__).parent / '.env'
+_root = Path(sys.argv[0]).resolve().parent if sys.argv else Path.cwd()
+env_path = _root / '.env'
+print(f"📂 .env path: {env_path} (exists: {env_path.exists()})")
 load_dotenv(dotenv_path=env_path, override=True)
-# 👇 ADD THE LANGSNITH TEST CODE RIGHT HERE 👇
+# Fallback: if dotenv didn't load LANGCHAIN_* / LANGSMITH_*, parse .env manually (handles encoding/line endings)
+if not os.environ.get("LANGCHAIN_API_KEY") and env_path.exists():
+    try:
+        with open(env_path, "r", encoding="utf-8", errors="replace") as f:
+            for line in f:
+                line = line.strip().rstrip("\r")
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, _, value = line.partition("=")
+                key, value = key.strip().rstrip("\r"), value.strip().rstrip("\r").strip('"\'')
+                if key.startswith(("LANGCHAIN_", "LANGSMITH_")):
+                    os.environ.setdefault(key, value)
+    except Exception as e:
+        print(f"⚠️ Could not parse .env: {e}")
+file_values = {k: v for k, v in os.environ.items() if k.startswith(("LANGCHAIN_", "LANGSMITH_"))}
+print("📄 .env keys detected:", ", ".join(sorted(file_values.keys())))
+
 from langsmith import Client
 import langsmith.utils
 
 # Clear any cached env vars (important after loading .env)
 langsmith.utils.get_env_var.cache_clear()
 
-# Test client connection
-try:
-    client = Client()
-    print(f"✅ LangSmith client initialized: {client is not None}")
-    print(f"   Project: {os.getenv('LANGCHAIN_PROJECT')}")
-    print(f"   Endpoint: {os.getenv('LANGCHAIN_ENDPOINT')}")
-except Exception as e:
-    print(f"❌ LangSmith client failed: {e}")
-    print("   Check your API key and environment variables")
-# 👆 END OF TEST CODE 👆
-
-# VERIFY environment variables are loaded (add this temporarily)
-print("🔍 LangSmith Configuration:")
-print(f"  LANGCHAIN_TRACING_V2: {os.getenv('LANGCHAIN_TRACING_V2')}")
-print(f"  LANGCHAIN_PROJECT: {os.getenv('LANGCHAIN_PROJECT')}")
-print(f"  LANGCHAIN_ENDPOINT: {os.getenv('LANGCHAIN_ENDPOINT')}")
-print(f"  API Key set: {'Yes' if os.getenv('LANGCHAIN_API_KEY') else 'No'}")
 
 # Add src to path
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(_root))
 
 from src.graph import create_graph
 from src.state import AgentState
 from src.utils.rubric_loader import load_rubric, ContextBuilder
-
-
 def main():
     # ❌ REMOVE THIS LINE: load_dotenv()
+    
+    print("🚀 main() function started...")
     
     parser = argparse.ArgumentParser(description="Automaton Auditor - Multi-agent code audit system")
     parser.add_argument("--repo-url", required=True, help="GitHub repository URL to audit")
@@ -56,6 +57,8 @@ def main():
     
     args = parser.parse_args()
     
+    print("📝 Arguments parsed successfully...")
+    
     # Set debug mode
     if args.debug:
         os.environ["DEBUG_MODE"] = "true"
@@ -66,6 +69,7 @@ def main():
     
     # Load rubric
     try:
+        print("🔄 Loading rubric...")
         rubric = load_rubric("rubric.json")
         context_builder = ContextBuilder(rubric)
         print(f"📜 Loaded rubric with {len(rubric.get('dimensions', []))} dimensions")
@@ -74,7 +78,15 @@ def main():
         sys.exit(1)
     
     # Create graph
-    graph = create_graph()
+    try:
+        print("🔄 Creating graph...")
+        graph = create_graph()
+        print("✅ Graph created successfully...")
+    except Exception as e:
+        print(f"❌ Failed to create graph: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
     
     # Initialize state
     initial_state: AgentState = {
@@ -93,15 +105,16 @@ def main():
     
     try:
         # Run the graph
+        print("🔄 Invoking graph with initial state...")
         final_state = graph.invoke(initial_state)
+        print("✅ Graph execution completed...")
         
         # Check for errors
         if final_state.get("errors"):
             print("\n⚠️ Warnings/Errors encountered:")
             for error in final_state["errors"]:
                 print(f"  - {error}")
-        
-        # Save report
+                # Save report
         if final_state.get("final_report"):
             # Create output directory
             output_path = Path(args.output)
@@ -138,5 +151,6 @@ def main():
         sys.exit(1)
 
 
-if __name__ == "__main__":
+# Entry point when run as script (use escaped names so __ is not stripped by sync/tools)
+if getattr(sys.modules.get("\x5f\x5fmain\x5f\x5f", object()), "\x5f\x5fname\x5f\x5f", None) == "\x5f\x5fmain\x5f\x5f":
     main()
