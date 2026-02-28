@@ -10,7 +10,7 @@ from typing_extensions import TypedDict
 class Evidence(BaseModel):
     goal: str = Field()
     found: bool = Field(description="Whether the artifact exists")
-    content: Optional[str] = Field(default=None)
+    content: Optional[Any] = Field(default=None)
     location: str = Field(
         description="File path or commit hash",
     )
@@ -68,3 +68,4 @@ class AgentState(TypedDict):
         List[JudicialOpinion], operator.add
     ]
     final_report: Optional[AuditReport]
+    markdown_report: Optional[str]
