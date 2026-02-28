@@ -1,34 +1,50 @@
 #!/usr/bin/env python
-# run_audit.py - CORRECT ORDER
+# run_audit.py
 
-# LOAD ENVIRONMENT VARIABLES FIRST - BEFORE ANY OTHER IMPORTS
 import os
+import sys
+import argparse
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env immediately
-env_path = Path(__file__).parent.absolute() / '.env'
-print(f"📂 Loading .env from: {env_path}")
+# LOAD ENV ONCE - AT THE VERY TOP
+env_path = Path(__file__).parent / '.env'
 load_dotenv(dotenv_path=env_path, override=True)
+# 👇 ADD THE LANGSNITH TEST CODE RIGHT HERE 👇
+from langsmith import Client
+import langsmith.utils
 
-# Verify they loaded (optional)
-print(f"✅ DETECTIVE_MODEL = {os.getenv('DETECTIVE_MODEL')}")
-print(f"✅ JUDGE_MODEL = {os.getenv('JUDGE_MODEL')}")
+# Clear any cached env vars (important after loading .env)
+langsmith.utils.get_env_var.cache_clear()
 
-# NOW import your modules - AFTER environment is loaded
-import sys
-import argparse
+# Test client connection
+try:
+    client = Client()
+    print(f"✅ LangSmith client initialized: {client is not None}")
+    print(f"   Project: {os.getenv('LANGCHAIN_PROJECT')}")
+    print(f"   Endpoint: {os.getenv('LANGCHAIN_ENDPOINT')}")
+except Exception as e:
+    print(f"❌ LangSmith client failed: {e}")
+    print("   Check your API key and environment variables")
+# 👆 END OF TEST CODE 👆
+
+# VERIFY environment variables are loaded (add this temporarily)
+print("🔍 LangSmith Configuration:")
+print(f"  LANGCHAIN_TRACING_V2: {os.getenv('LANGCHAIN_TRACING_V2')}")
+print(f"  LANGCHAIN_PROJECT: {os.getenv('LANGCHAIN_PROJECT')}")
+print(f"  LANGCHAIN_ENDPOINT: {os.getenv('LANGCHAIN_ENDPOINT')}")
+print(f"  API Key set: {'Yes' if os.getenv('LANGCHAIN_API_KEY') else 'No'}")
+
+# Add src to path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from src.graph import create_graph
 from src.state import AgentState
 from src.utils.rubric_loader import load_rubric, ContextBuilder
 
-# ... rest of your code
 
 def main():
-    # Load environment variables
-    load_dotenv()
+    # ❌ REMOVE THIS LINE: load_dotenv()
     
     parser = argparse.ArgumentParser(description="Automaton Auditor - Multi-agent code audit system")
     parser.add_argument("--repo-url", required=True, help="GitHub repository URL to audit")
@@ -48,16 +64,11 @@ def main():
     print(f"📂 Repository: {args.repo_url}")
     print(f"📄 PDF Report: {args.pdf_path}")
     
-    # Load rubric - using the load_rubric convenience function
+    # Load rubric
     try:
-        rubric = load_rubric("rubric.json")  # Returns rubric dictionary
-        dimensions = rubric.get("dimensions", [])
-        print(f"📜 Loaded rubric with {len(dimensions)} dimensions")
-        
-        # Create context builder from rubric
+        rubric = load_rubric("rubric.json")
         context_builder = ContextBuilder(rubric)
-        print(f"✅ ContextBuilder created successfully")
-        
+        print(f"📜 Loaded rubric with {len(rubric.get('dimensions', []))} dimensions")
     except Exception as e:
         print(f"❌ Failed to load rubric: {e}")
         sys.exit(1)
@@ -65,12 +76,12 @@ def main():
     # Create graph
     graph = create_graph()
     
-    # Initialize state with context builder
+    # Initialize state
     initial_state: AgentState = {
         "repo_url": args.repo_url,
         "pdf_path": args.pdf_path,
         "config": {
-            "rubric": context_builder  # 👈 This is what nodes will access
+            "rubric": context_builder
         },
         "evidences": {},
         "opinions": [],
@@ -112,9 +123,9 @@ def main():
                 low_scores = [c for c in report.criteria if c.final_score <= 2]
                 
                 if high_scores:
-                    print(f"✅ Strengths: {', '.join([c.dimension_name for c in high_scores])}")
+                    print(f"✅ Strengths: {', '.join([c.name for c in high_scores])}")
                 if low_scores:
-                    print(f"⚠️ Issues: {', '.join([c.dimension_name for c in low_scores])}")
+                    print(f"⚠️ Issues: {', '.join([c.name for c in low_scores])}")
             else:
                 print("❌ No markdown report generated")
         else:

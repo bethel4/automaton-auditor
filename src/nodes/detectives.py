@@ -2,15 +2,31 @@
 
 import os
 import json
-from typing import Dict, Any, List
+import time
+import tempfile
+import subprocess
+from datetime import datetime
+from typing import Dict, List, Any, Optional
 from pathlib import Path
 
+from langsmith import traceable
+
 from src.state import AgentState, Evidence
-from src.tools import repo_tools, doc_tools, vision_tools
-from src.utils.rubric_loader import load_rubric, ContextBuilder
+from src.tools.repo_tools import (
+    extract_git_history, 
+    ast_parse_state_management, 
+    ast_parse_graph_structure,
+    clone_repository,
+    analyze_commit_patterns,
+    check_tool_safety,
+    check_structured_output,
+    get_repo_files
+)
+from src.tools.doc_tools import extract_text_from_pdf, extract_images_from_pdf
 from src.llm_router import get_llm_for_task, get_fallback_llm, DEBUG_MODE
 
 
+@traceable(name="repo_investigator", run_type="chain")
 def repo_investigator(state: AgentState) -> Dict[str, Any]:
     """
     Detective: Git forensic analysis with deterministic tools + LLM interpretation
@@ -21,43 +37,62 @@ def repo_investigator(state: AgentState) -> Dict[str, Any]:
     3. Use LLM to interpret patterns (not to generate facts)
     4. Store both facts and interpretation as Evidence
     """
+    print(f"\n🕵️ REPO INVESTIGATOR STARTED")
+    print(f"📂 Repository: {state.get('repo_url', 'Unknown')}")
+    start = time.time()
+    print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] REPO INVESTIGATOR STARTED")
+    
     repo_url = state["repo_url"]
     evidences = []
     errors = []
     
+    print(f"🔄 Step 1: Loading rubric instructions...")
     # Load rubric instructions
     rubric_loader = state["config"]["rubric"]
     repo_dimensions = rubric_loader.get_repo_detective_instructions()
+    print(f"✅ Rubric loaded: {len(repo_dimensions)} dimensions")
     
     repo_path = None
     temp_dir = None
     
     try:
+        print(f"🔄 Step 2: Cloning repository...")
         # --- STEP 1: SAFELY CLONE REPOSITORY ---
-        repo_path, temp_dir = repo_tools.clone_repository(repo_url)
+        repo_path, temp_dir = clone_repository(repo_url)
+        print(f"✅ Repository cloned to: {repo_path}")
         
+        print(f"🔄 Step 3: Extracting git history...")
         # --- STEP 2: DETERMINISTIC FORENSICS (NO LLM) ---
         
         # Get git history
-        commits = repo_tools.extract_git_history(repo_path)
+        git_history = extract_git_history(repo_path)
+        print(f"✅ Git history extracted: {len(git_history.get('commits', []))} commits")
         
+        print(f"🔄 Step 4: Analyzing commit patterns...")
         # Deterministic commit pattern analysis
-        commit_analysis = repo_tools.analyze_commit_patterns(commits)
+        commit_analysis = analyze_commit_patterns(git_history)
+        print(f"✅ Commit patterns analyzed")
         
+        print(f"🔄 Step 5: AST analysis of state management...")
         # AST analysis of state management
-        state_analysis = repo_tools.ast_parse_state_management(repo_path)
+        state_analysis = ast_parse_state_management(repo_path)
+        print(f"✅ State management analyzed")
         
+        print(f"🔄 Step 6: AST analysis of graph structure...")
         # AST analysis of graph structure
-        graph_analysis = repo_tools.ast_parse_graph_structure(repo_path)
+        graph_analysis = ast_parse_graph_structure(repo_path)
+        print(f"✅ Graph structure analyzed")
         
+        print(f"🔄 Step 7: Checking tool safety...")
         # Check tool safety
-        safety_analysis = repo_tools.check_tool_safety(repo_path)
+        safety_analysis = check_tool_safety(repo_path)
+        print(f"✅ Tool safety checked")
         
         # Check structured output
-        structured_analysis = repo_tools.check_structured_output(repo_path)
+        structured_analysis = check_structured_output(repo_path)
         
         # Get all repo files for cross-reference
-        repo_files = repo_tools.get_repo_files(repo_path)
+        repo_files = get_repo_files(repo_path)
         
         # --- STEP 3: STORE DETERMINISTIC EVIDENCE FIRST ---
         
@@ -66,15 +101,15 @@ def repo_investigator(state: AgentState) -> Dict[str, Any]:
             goal="Git Forensic Analysis",
             found=True,
             content={
-                "commit_count": len(commits),
+                "commit_count": len(git_history.get('commits', [])),  # ← Use git_history
                 "analysis": commit_analysis,
-                "sample_commits": commits[:5] if commits else []
+                "sample_commits": git_history.get('commits', [])[:5]  # ← Use git_history
             },
             location=repo_url,
-            rationale=f"Found {len(commits)} commits. Progression score: {commit_analysis.get('progression_score', 1)}/5",
-            confidence=0.95,
-            evidence_type="deterministic"
+            rationale=f"Found {len(git_history.get('commits', []))} commits. Progression score: {commit_analysis.get('progression_score', 1)}/5",
+            confidence=0.95
         ))
+
         
         # State management evidence (deterministic)
         evidences.append(Evidence(
@@ -83,8 +118,7 @@ def repo_investigator(state: AgentState) -> Dict[str, Any]:
             content=state_analysis,
             location="src/state.py",
             rationale=f"Pydantic models: {state_analysis.get('has_pydantic', False)}, Reducers: {state_analysis.get('has_reducers', False)}",
-            confidence=0.95,
-            evidence_type="deterministic"
+            confidence=0.95
         ))
         
         # Graph orchestration evidence (deterministic)
@@ -94,8 +128,7 @@ def repo_investigator(state: AgentState) -> Dict[str, Any]:
             content=graph_analysis,
             location="src/graph.py",
             rationale=f"Has StateGraph: {graph_analysis.get('has_stategraph', False)}, Parallel: {graph_analysis.get('has_parallel_keyword', False)}",
-            confidence=0.9,
-            evidence_type="deterministic"
+            confidence=0.9
         ))
         
         # Safe tool engineering evidence (deterministic)
@@ -105,8 +138,7 @@ def repo_investigator(state: AgentState) -> Dict[str, Any]:
             content=safety_analysis,
             location="src/tools/",
             rationale=f"Safety score: {safety_analysis.get('safety_score', 1)}/5",
-            confidence=0.95,
-            evidence_type="deterministic"
+            confidence=0.95
         ))
         
         # Structured output enforcement (deterministic)
@@ -116,8 +148,7 @@ def repo_investigator(state: AgentState) -> Dict[str, Any]:
             content=structured_analysis,
             location="src/nodes/judges.py",
             rationale=f"Structured output: {structured_analysis.get('has_structured_output', False)}",
-            confidence=0.95,
-            evidence_type="deterministic"
+            confidence=0.95
         ))
         
         # --- STEP 4: LLM INTERPRETATION (ONLY AFTER FACTS) ---
@@ -155,7 +186,17 @@ Answer in JSON format:
 }}
 """
             
-            response = llm.invoke(interpretation_prompt)
+            response = llm.invoke(
+                interpretation_prompt,
+                config={
+                    "tags": ["detective", "repo-analysis", "pattern-recognition"],
+                    "metadata": {
+                        "node": "repo_investigator",
+                        "commit_count": len(git_history.get('commits', [])),
+                        "has_stategraph": graph_analysis.get("has_stategraph", False)
+                    }
+                }
+            )
             
             # Parse JSON response
             if hasattr(response, 'content'):
@@ -165,13 +206,12 @@ Answer in JSON format:
             
             # Store interpretation as evidence (lower confidence)
             evidences.append(Evidence(
-                goal="Developer Pattern Analysis",
+                goal="Repository Analysis",
                 found=True,
                 content=interpretation,
                 location=repo_url,
                 rationale=f"Pattern: {interpretation.get('development_pattern', 'unknown')}",
-                confidence=interpretation.get('confidence', 0.7),
-                evidence_type="llm_interpretation"
+                confidence=interpretation.get('confidence', 0.7)
             ))
             
         except Exception as e:
@@ -190,17 +230,12 @@ Answer in JSON format:
             has_tech_lead = "TechLead" in judges_content
             
             evidences.append(Evidence(
-                goal="Judicial Nuance and Dialectics",
+                goal="Judicial Nuance",
                 found=has_prosecutor and has_defense and has_tech_lead,
-                content={
-                    "has_prosecutor": has_prosecutor,
-                    "has_defense": has_defense,
-                    "has_tech_lead": has_tech_lead
-                },
+                content={"has_prosecutor": has_prosecutor, "has_defense": has_defense, "has_tech_lead": has_tech_lead},
                 location="src/nodes/judges.py",
                 rationale=f"Found all three personas: {has_prosecutor and has_defense and has_tech_lead}",
-                confidence=0.9,
-                evidence_type="deterministic"
+                confidence=0.9
             ))
         
         return {
@@ -213,11 +248,10 @@ Answer in JSON format:
         error_evidence = Evidence(
             goal="Repository Analysis",
             found=False,
-            content=f"Analysis failed: {str(e)}",
+            content=f"Error: {str(e)}",
             location=repo_url,
             rationale=f"Failed to analyze repository: {str(e)}",
-            confidence=0.1,
-            evidence_type="deterministic"
+            confidence=0.1
         )
         
         return {
@@ -229,37 +263,53 @@ Answer in JSON format:
         # Clean up temp directory
         if temp_dir:
             temp_dir.cleanup()
+    
+    print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] REPO INVESTIGATOR FINISHED (took {time.time()-start:.1f}s)")
 
 
+@traceable(name="doc_analyst", run_type="chain")
 def doc_analyst(state: AgentState) -> Dict[str, Any]:
     """Detective: PDF analysis with deterministic extraction + LLM interpretation"""
+    print(f"\n📄 DOC ANALYST STARTED")
+    print(f"📄 PDF Path: {state.get('pdf_path', 'No PDF')}")
+    
     pdf_path = state.get("pdf_path", "")
     evidences = []
     errors = []
-    
+    start = time.time()
+    print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] DOC ANALYST STARTED")
     if not pdf_path or not os.path.exists(pdf_path):
+        print(f"❌ PDF file not found: {pdf_path}")
         evidences.append(Evidence(
-            goal="PDF Report Analysis",
+            goal="PDF Analysis",
             found=False,
-            content=None,
+            content="PDF file not found",
             location=pdf_path,
             rationale="PDF file not found",
-            confidence=0.0,
-            evidence_type="deterministic"
+            confidence=0.0
         ))
         return {"evidences": {"doc_analyst": evidences}, "errors": errors}
     
+    print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] DOC ANALYST FINISHED (took {time.time()-start:.1f}s)")
+    
     try:
+        print(f"🔄 Step 1: Extracting text from PDF...")
         # --- STEP 1: DETERMINISTIC EXTRACTION ---
         
         # Extract text from PDF
+        print(f"🔄 Step 2: Extracting text from PDF...")
         pdf_text = doc_tools.extract_text_from_pdf(pdf_path)
+        print(f"✅ PDF text extracted: {len(pdf_text)} characters")
         
         # Extract file paths mentioned
+        print(f"🔄 Step 3: Extracting file paths from text...")
         claimed_paths = doc_tools.extract_file_paths_from_text(pdf_text)
+        print(f"✅ File paths extracted: {len(claimed_paths)} paths")
         
         # Check for key concepts
+        print(f"🔄 Step 4: Extracting concepts from text...")
         concepts = doc_tools.extract_concepts(pdf_text)
+        print(f"✅ Concepts extracted: {len(concepts)} concepts")
         
         # Get metadata
         metadata = doc_tools.extract_metadata(pdf_text)
@@ -283,25 +333,19 @@ def doc_analyst(state: AgentState) -> Dict[str, Any]:
         evidences.append(Evidence(
             goal="Report Accuracy (Cross-Reference)",
             found=len(cross_reference.get("verified", [])) > 0,
-            content={
-                "claimed_paths": claimed_paths[:10],
-                "verified": cross_reference.get("verified", [])[:10],
-                "hallucinated": cross_reference.get("hallucinated", [])[:10]
-            },
+            content=cross_reference,
             location=pdf_path,
             rationale=f"Verified {len(cross_reference.get('verified', []))} paths, hallucinated {len(cross_reference.get('hallucinated', []))}",
-            confidence=0.9,
-            evidence_type="deterministic"
+            confidence=0.9
         ))
         
         evidences.append(Evidence(
-            goal="Theoretical Depth",
-            found=any(concepts.values()),
+            goal="PDF Analysis",
+            found=True,
             content=concepts,
             location=pdf_path,
             rationale=f"Found concepts: {[k for k,v in concepts.items() if v]}",
-            confidence=0.85,
-            evidence_type="deterministic"
+            confidence=0.85
         ))
         
         # --- STEP 4: LLM INTERPRETATION FOR DEPTH ---
@@ -328,7 +372,17 @@ Answer in JSON:
 }}
 """
                 
-                response = llm.invoke(depth_prompt)
+                response = llm.invoke(
+                    depth_prompt,
+                    config={
+                        "tags": ["detective", "doc-analysis", "depth-evaluation"],
+                        "metadata": {
+                            "node": "doc_analyst",
+                            "pdf_pages": len(pdf_text) // 1000 if pdf_text else 0,
+                            "chunk_count": len(chunks)
+                        }
+                    }
+                )
                 
                 if hasattr(response, 'content'):
                     depth_analysis = json.loads(response.content)
@@ -336,13 +390,12 @@ Answer in JSON:
                     depth_analysis = json.loads(response)
                 
                 evidences.append(Evidence(
-                    goal="Theoretical Depth Analysis",
+                    goal="PDF Analysis",
                     found=True,
                     content=depth_analysis,
                     location=pdf_path,
                     rationale=f"Depth: {depth_analysis.get('understanding_depth', 'unknown')}",
-                    confidence=depth_analysis.get('confidence', 0.7),
-                    evidence_type="llm_interpretation"
+                    confidence=depth_analysis.get('confidence', 0.7)
                 ))
                 
             except Exception as e:
@@ -358,25 +411,29 @@ Answer in JSON:
         error_evidence = Evidence(
             goal="PDF Analysis",
             found=False,
-            content={"error": str(e)},
+            content=f"Error: {str(e)}",
             location=pdf_path,
             rationale=f"Failed to analyze PDF: {str(e)}",
-            confidence=0.1,
-            evidence_type="deterministic"
+            confidence=0.1
         )
         
         return {
             "evidences": {"doc_analyst": [error_evidence]},
             "errors": errors
         }
+    
+    finally:
+        print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] DOC ANALYST FINISHED (took {time.time()-start:.1f}s)")
 
 
+@traceable(name="vision_inspector", run_type="chain")
 def vision_inspector(state: AgentState) -> Dict[str, Any]:
     """Detective: Multimodal diagram analysis (optional)"""
     pdf_path = state.get("pdf_path", "")
     evidences = []
     errors = []
-    
+    start = time.time()
+    print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] VISION INSPECTOR STARTED")
     if not pdf_path or not os.path.exists(pdf_path):
         return {"evidences": {"vision_inspector": []}, "errors": errors}
     
@@ -422,13 +479,12 @@ Return JSON:
                 })
             
             evidences.append(Evidence(
-                goal="Architectural Diagram Analysis",
+                goal="Swarm Visual",
                 found=True,
-                content={"analyses": analyses, "total_images": len(images)},
+                content=analyses,
                 location=pdf_path,
                 rationale=f"Analyzed {len(analyses)} images",
-                confidence=0.7,
-                evidence_type="llm_interpretation"
+                confidence=0.7
             ))
             
         except Exception as e:
@@ -445,3 +501,6 @@ Return JSON:
             "evidences": {"vision_inspector": []},
             "errors": errors
         }
+    
+    finally:
+        print(f"🕒 [{datetime.now().strftime('%H:%M:%S')}] VISION INSPECTOR FINISHED (took {time.time()-start:.1f}s)")

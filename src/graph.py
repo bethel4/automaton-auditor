@@ -30,27 +30,27 @@ def create_graph():
     workflow.add_node("tech_lead", tech_lead)
     workflow.add_node("chief_justice", chief_justice)
     
-    # IMPORTANT: Set entry point to route to ALL detectives in parallel
-    # Method 1: Using a router node (recommended)
-    def route_to_detectives(state):
-        """Route to all detectives in parallel"""
-        # This function just returns the list of nodes to run in parallel
-        return ["repo_investigator", "doc_analyst", "vision_inspector"]
+    # ✅ FIXED: True parallel execution using proper LangGraph syntax
+    # LangGraph automatically runs nodes in parallel when they have no dependencies
+    # Set entry point to trigger all detectives
+    workflow.set_entry_point("repo_investigator")
     
-    workflow.add_conditional_edges(
-        "__start__",  # Special node that represents graph start
-        route_to_detectives,
-        {
-            "repo_investigator": "repo_investigator",
-            "doc_analyst": "doc_analyst", 
-            "vision_inspector": "vision_inspector"
-        }
-    )
+    # Create parallel execution by removing dependencies between detectives
+    # All detectives can run in parallel since they don't depend on each other
+    # We'll use a special approach: create a starter node that fans out
     
-    # Alternative Method 2: If your LangGraph version supports it
-    # workflow.add_edge("__start__", "repo_investigator")
-    # workflow.add_edge("__start__", "doc_analyst")
-    # workflow.add_edge("__start__", "vision_inspector")
+    def start_all_detectives(state):
+        """Kick off all detectives simultaneously"""
+        # This function just passes through state
+        return state
+    
+    workflow.add_node("start_all_detectives", start_all_detectives)
+    workflow.set_entry_point("start_all_detectives")
+    
+    # Fan out to all detectives in parallel
+    workflow.add_edge("start_all_detectives", "repo_investigator")
+    workflow.add_edge("start_all_detectives", "doc_analyst")
+    workflow.add_edge("start_all_detectives", "vision_inspector")
     
     # All detectives fan-in to aggregator
     workflow.add_edge("repo_investigator", "aggregator")

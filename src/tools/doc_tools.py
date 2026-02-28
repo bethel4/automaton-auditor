@@ -1,17 +1,40 @@
-# src/tools/doc_tools.py (Docling version)
+# src/tools/doc_tools.py (Fast PyPDF2 version with caching)
 
 import os
 import re
 import hashlib
+import pickle
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 
-# Import Docling
-# Import Docling
-from docling.document_converter import DocumentConverter
-from docling.datamodel.base_models import InputFormat
-# from docling.datamodel.pipeline import PdfPipelineOptions
-from docling.backend.pypdfium2_backend import PyPdfiumDocumentBackend
+# Cache directory for PDF text
+CACHE_DIR = Path.home() / ".cache" / "automaton-auditor"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+
+def get_cached_pdf_text(pdf_path: str) -> str | None:
+    """Get cached PDF text if available"""
+    if not os.path.exists(pdf_path):
+        return None
+    
+    # Create cache key from file modification time
+    mtime = os.path.getmtime(pdf_path)
+    cache_key = hashlib.md5(f"{pdf_path}_{mtime}".encode()).hexdigest()
+    cache_file = CACHE_DIR / f"{cache_key}.pkl"
+    
+    if cache_file.exists():
+        print("📦 Using cached PDF text")
+        with open(cache_file, 'rb') as f:
+            return pickle.load(f)
+    return None
+
+def cache_pdf_text(pdf_path: str, text: str):
+    """Cache PDF text for next time"""
+    mtime = os.path.getmtime(pdf_path)
+    cache_key = hashlib.md5(f"{pdf_path}_{mtime}".encode()).hexdigest()
+    cache_file = CACHE_DIR / f"{cache_key}.pkl"
+    
+    with open(cache_file, 'wb') as f:
+        pickle.dump(text, f)
 
 def ingest_pdf(pdf_path: str) -> List[str]:
     """
@@ -80,7 +103,8 @@ def query_pdf(chunks: List[str], question: str) -> List[str]:
 
 def extract_text_from_pdf(pdf_path: str) -> str:
     """
-    Extract all text from PDF using Docling
+    Extract all text from PDF using PyPDF2 only - FAST, no OCR!
+    With caching for even faster subsequent runs.
     
     Returns:
         Extracted text as string
@@ -88,18 +112,41 @@ def extract_text_from_pdf(pdf_path: str) -> str:
     if not os.path.exists(pdf_path):
         return ""
     
+    # Check cache first
+    cached = get_cached_pdf_text(pdf_path)
+    if cached:
+        return cached
+    
     try:
-        # Use Docling DocumentConverter
-        converter = DocumentConverter()
-        result = converter.convert(pdf_path)
+        # Import PyPDF2 for fast text extraction
+        import PyPDF2
         
-        # Extract text from the document
-        text_content = result.document.export_to_markdown()
+        print("⏳ Extracting PDF text (first time, may be slow)...")
+        text = ""
+        with open(pdf_path, 'rb') as file:
+            reader = PyPDF2.PdfReader(file)
+            print(f"📄 PDF has {len(reader.pages)} pages")
+            
+            for page_num, page in enumerate(reader.pages):
+                page_text = page.extract_text()
+                if page_text:
+                    text += page_text + "\n"
+                
+                # Progress update for long PDFs
+                if (page_num + 1) % 10 == 0:
+                    print(f"  Processed {page_num + 1} pages...")
         
-        return text_content if text_content else ""
+        print(f"✅ Extracted {len(text)} characters from PDF")
+        
+        # Cache for next time
+        if text:
+            cache_pdf_text(pdf_path, text)
+        
+        return text if text else ""
         
     except Exception as e:
-        return f"Error extracting text with Docling: {str(e)}"
+        print(f"Error extracting text with PyPDF2: {e}")
+        return f"Error extracting text: {str(e)}"
 
 
 def extract_images_from_pdf(pdf_path: str) -> List[bytes]:

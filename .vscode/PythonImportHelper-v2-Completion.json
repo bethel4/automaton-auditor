@@ -1160,7 +1160,7 @@
         "kind": 2,
         "importPath": "src.nodes.detectives",
         "description": "src.nodes.detectives",
-        "peekOfCode": "def repo_investigator(state: AgentState) -> Dict[str, Any]:\n    \"\"\"\n    Detective: Git forensic analysis with deterministic tools + LLM interpretation\n    Workflow:\n    1. Clone repo safely\n    2. Run deterministic tools to collect facts\n    3. Use LLM to interpret patterns (not to generate facts)\n    4. Store both facts and interpretation as Evidence\n    \"\"\"\n    repo_url = state[\"repo_url\"]",
+        "peekOfCode": "def repo_investigator(state: AgentState) -> Dict[str, Any]:\n    \"\"\"\n    Detective: Git forensic analysis with deterministic tools + LLM interpretation\n    Workflow:\n    1. Clone repo safely\n    2. Run deterministic tools to collect facts\n    3. Use LLM to interpret patterns (not to generate facts)\n    4. Store both facts and interpretation as Evidence\n    \"\"\"\n    print(f\"\\n🕵️ REPO INVESTIGATOR STARTED\")",
         "detail": "src.nodes.detectives",
         "documentation": {}
     },
@@ -1430,7 +1430,7 @@
         "kind": 2,
         "importPath": "src.tools.repo_tools",
         "description": "src.tools.repo_tools",
-        "peekOfCode": "def clone_repository(repo_url: str) -> Tuple[Path, tempfile.TemporaryDirectory]:\n    \"\"\"\n    Safely clone a repository into a temporary directory.\n    Returns:\n        Tuple of (repo_path, temp_dir) - caller must clean up temp_dir\n    \"\"\"\n    temp_dir = tempfile.TemporaryDirectory()\n    repo_path = Path(temp_dir.name)\n    try:\n        # Use subprocess, NOT os.system",
+        "peekOfCode": "def clone_repository(repo_url: str) -> Tuple[Path, tempfile.TemporaryDirectory]:\n    \"\"\"\n    Safely clone a repository into a temporary directory with enhanced error handling.\n    Args:\n        repo_url: URL of the repository to clone\n    Returns:\n        Tuple of (repo_path, temp_dir) - caller must clean up temp_dir\n    Raises:\n        Exception: If clone fails with detailed error information\n    \"\"\"",
         "detail": "src.tools.repo_tools",
         "documentation": {}
     },
@@ -1439,7 +1439,7 @@
         "kind": 2,
         "importPath": "src.tools.repo_tools",
         "description": "src.tools.repo_tools",
-        "peekOfCode": "def extract_git_history(repo_path: Path, max_commits: int = 50) -> List[Dict[str, Any]]:\n    \"\"\"\n    Extract git commit history deterministically.\n    Returns:\n        List of commits with hash, message, author, date\n    \"\"\"\n    try:\n        # Get commit history in reverse chronological order\n        result = subprocess.run(\n            [\"git\", \"log\", f\"--max-count={max_commits}\", \"--pretty=format:%h|%s|%an|%at\"],",
+        "peekOfCode": "def extract_git_history(repo_path: Path, max_commits: int = 50) -> Dict[str, Any]:\n    \"\"\"\n    Extract git commit history deterministically with enhanced safety and error handling.\n    Args:\n        repo_path: Path to the git repository\n        max_commits: Maximum number of commits to extract\n    Returns:\n        Dict with commit history and metadata\n    \"\"\"\n    try:",
         "detail": "src.tools.repo_tools",
         "documentation": {}
     },
@@ -1448,7 +1448,7 @@
         "kind": 2,
         "importPath": "src.tools.repo_tools",
         "description": "src.tools.repo_tools",
-        "peekOfCode": "def analyze_commit_patterns(commits: List[Dict[str, Any]]) -> Dict[str, Any]:\n    \"\"\"\n    Deterministic analysis of commit patterns - NO LLM\n    Returns:\n        Dict with pattern analysis results\n    \"\"\"\n    if not commits or len(commits) == 0:\n        return {\n            \"total_commits\": 0,\n            \"bulk_upload_detected\": True,",
+        "peekOfCode": "def analyze_commit_patterns(git_history: Dict[str, Any]) -> Dict[str, Any]:\n    \"\"\"\n    Deterministic analysis of commit patterns - NO LLM\n    Args:\n        git_history: Dict returned by extract_git_history\n    Returns:\n        Dict with pattern analysis results\n    \"\"\"\n    commits = git_history.get(\"commits\", [])\n    if not commits or len(commits) == 0:",
         "detail": "src.tools.repo_tools",
         "documentation": {}
     },
@@ -1466,7 +1466,7 @@
         "kind": 2,
         "importPath": "src.tools.repo_tools",
         "description": "src.tools.repo_tools",
-        "peekOfCode": "def ast_parse_graph_structure(repo_path: Path) -> Dict[str, Any]:\n    \"\"\"\n    Use AST to analyze graph structure for parallelism - NO LLM\n    Returns:\n        Dict with parallelism analysis\n    \"\"\"\n    graph_file = repo_path / \"src\" / \"graph.py\"\n    if not graph_file.exists():\n        return {\n            \"exists\": False,",
+        "peekOfCode": "def ast_parse_graph_structure(repo_path: Path) -> Dict[str, Any]:\n    \"\"\"\n    Use robust AST to analyze graph structure for parallelism - NO LLM\n    Returns:\n        Dict with parallelism analysis\n    \"\"\"\n    graph_file = repo_path / \"src\" / \"graph.py\"\n    if not graph_file.exists():\n        return {\n            \"exists\": False,",
         "detail": "src.tools.repo_tools",
         "documentation": {}
     },
