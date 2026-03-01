@@ -42,7 +42,6 @@ sys.path.insert(0, str(_root))
 from src.graph import create_graph
 from src.state import AgentState
 from src.utils.rubric_loader import load_rubric, ContextBuilder
-from src.nodes.justice import generate_markdown_report
 def main():
     # ❌ REMOVE THIS LINE: load_dotenv()
     
@@ -89,13 +88,10 @@ def main():
         traceback.print_exc()
         sys.exit(1)
     
-    # Initialize state (resolve pdf_path to absolute so doc_analyst/vision find the file)
-    pdf_path = args.pdf_path
-    if pdf_path and os.path.exists(pdf_path):
-        pdf_path = str(Path(pdf_path).resolve())
+    # Initialize state
     initial_state: AgentState = {
         "repo_url": args.repo_url,
-        "pdf_path": pdf_path,
+        "pdf_path": args.pdf_path,
         "config": {
             "rubric": context_builder
         },
@@ -118,39 +114,35 @@ def main():
             print("\n⚠️ Warnings/Errors encountered:")
             for error in final_state["errors"]:
                 print(f"  - {error}")
+                # Save report
         if final_state.get("final_report"):
             # Create output directory
             output_path = Path(args.output)
             output_path.parent.mkdir(parents=True, exist_ok=True)
             
-            report = final_state["final_report"]
-            markdown = final_state.get("markdown_report")
-            if not markdown:
-                markdown = generate_markdown_report(report)
-            with open(output_path, "w") as f:
-                f.write(markdown)
-            
-            print(f"\n✅ Audit complete! Report saved to: {output_path}")
-            print(f"\n📊 Overall Score: {report.overall_score:.1f}/5.0")
-            
-            high_scores = [c for c in report.criteria if c.final_score >= 4]
-            low_scores = [c for c in report.criteria if c.final_score <= 2]
-            if high_scores:
-                print(f"✅ Strengths: {', '.join([c.name for c in high_scores])}")
-            if low_scores:
-                print(f"⚠️ Issues: {', '.join([c.name for c in low_scores])}")
+            # Generate markdown
+            if "markdown_report" in final_state:
+                with open(output_path, "w") as f:
+                    f.write(final_state["markdown_report"])
+                
+                print(f"\n✅ Audit complete! Report saved to: {output_path}")
+                
+                # Print summary
+                report = final_state["final_report"]
+                print(f"\n📊 Overall Score: {report.overall_score:.1f}/5.0")
+                
+                # Show top strengths/weaknesses
+                high_scores = [c for c in report.criteria if c.final_score >= 4]
+                low_scores = [c for c in report.criteria if c.final_score <= 2]
+                
+                if high_scores:
+                    print(f"✅ Strengths: {', '.join([c.name for c in high_scores])}")
+                if low_scores:
+                    print(f"⚠️ Issues: {', '.join([c.name for c in low_scores])}")
+            else:
+                print("❌ No markdown report generated")
         else:
             print("❌ No final report generated")
-            # Still write a minimal report so the user has an artifact
-            output_path = Path(args.output)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            evidence_summary = []
-            for det, ev_list in final_state.get("evidences", {}).items():
-                evidence_summary.append(f"## {det}\n{len(ev_list)} evidence item(s)")
-            minimal_md = "# Automaton Auditor – Partial Run\n\nNo full report (chief justice did not receive enough judge opinions).\n\n## Evidence collected\n\n" + "\n\n".join(evidence_summary) + "\n"
-            with open(output_path, "w") as f:
-                f.write(minimal_md)
-            print(f"📄 Minimal report written to: {output_path}")
             
     except Exception as e:
         print(f"❌ Audit failed: {e}")
